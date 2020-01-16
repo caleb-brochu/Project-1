@@ -14,3 +14,5 @@ Google Maps https://developers.google.com/maps/solutions/store-locator/clothing-
 Dark Sky https://darksky.net/dev/docs
 
 CSS library: Bulma https://bulma.io/ 
+
+![Page preview](/Assets/Images/IMG_8373.jpg?raw=true "Page Preview")
