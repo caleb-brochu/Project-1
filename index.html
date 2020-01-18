@@ -7,26 +7,49 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="/assets/CSS/style.css"></script>
     <title>Suitcase</title>
 </head>
 <body>
-    <div id = header> 
-        <div class = "navbar">
-            <h1>Suitcase</h1>
+    <div id = header class="hero is-dark"> 
+        <div class = "container has-text-center">
             <br>
+            <h1 class="title is-size-1 has-text-weight-bold has-text-grey-lighter">Suitcase</h1>
         </div>
-        <form class = "">
-            <br>
-            Destination:
-            <input id = "destination" type="text" name="Destination" >
-            <br>
-            Leaving:
-            <input id = "start-date"type="date" name="Start-Date">
-            <br>
-            Returning:
-            <input  id = "end-date" type="date" name="End-Date">
-            <input  type="submit" value="Submit">
-          </form>     
+        <div class="hero-body">
+            <div class="columns">
+                <div class="column is-2"></div>
+                <div class="column">
+                    <form class = "field">
+                        <label class="label has-text-grey-lighter">Destination:</label>
+                        <div class="control">
+                            <input class="input has-background-grey-lighter	" id = "destination" type="text" name="Destination" >
+                        </div>
+                    </form>
+                </div>
+                <div class="column is-2"></div>
+            </div>  
+            <div class="columns">
+                <div class="column is-2"></div>
+                <div class="column">
+                    <form class = "field">
+                        <label class="label has-text-grey-lighter">Leaving:</label>
+                        <div class="control">
+                            <input class="input has-background-grey-lighter	" id = "start-date"type="date" name="Start-Date" >
+                        </div>
+                    </form>
+                </div>
+                <div class="column">
+                    <form class = "field">
+                        <label class="label has-text-grey-lighter">Returning:</label>
+                        <div class="control">
+                            <input class="input has-background-grey-lighter	" id = "end-date" type="date" name="End-Date">
+                        </div>
+                    </form>
+                </div>
+                <div class="column is-2"></div>
+            </div> 
+        </div>
     </div>
     
     <div>
