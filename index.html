@@ -4,9 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>Suitcase</title>
 </head>
 <body>
+    <div id = header> 
+        <div class = "navbar">
+            <h1>Suitcase</h1>
+            <br>
+        </div>
+        <form class = "">
+            <br>
+            Destination:
+            <input id = "destination" type="text" name="Destination" >
+            <br>
+            Leaving:
+            <input id = "start-date"type="date" name="Start-Date">
+            <br>
+            Returning:
+            <input  id = "end-date" type="date" name="End-Date">
+            <input  type="submit" value="Submit">
+          </form>     
+    </div>
     
+    <div>
+        <div class = "summary"></div>
+    </div>
+
+    <div>
+        <div class = "days"></div>
+    </div>
+    <div>
+        <div class = "map"></div>
+    </div>
+
 </body>
 </html>
