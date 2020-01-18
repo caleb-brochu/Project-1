@@ -18,4 +18,4 @@ CSS library: Bulma https://bulma.io/
 Byron and Caleb Front End Development
 Austin and Josh Back End Development
 
-![Page preview](/Assets/Images/IMG_8373.jpg?raw=true "Page Preview")
+![Page preview](/assets/images/wireframe.jpg?raw=true "Page Preview")
