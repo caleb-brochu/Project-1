@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="/assets/CSS/style.css"></script>
     <title>Suitcase</title>
+    
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- icons -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <!-- our CSS -->
+    <script src="assets/css/style.css"></script>
+    <!-- time -->
+    <script src="assets/js/moment.js"></script>
 </head>
+
 <body>
+    <!-- Header: location, Start date, End date -->
     <div id = header class="hero is-dark"> 
         <div class = "container has-text-center">
             <br>
             <h1 class="title is-size-1 has-text-weight-bold has-text-grey-lighter">Suitcase &nbsp;<i class="fas fa-suitcase-rolling"></i></h1>
         </div>
+
         <div class="hero-body">
             <div class="container is-desktop">
                 <div class="columns">
@@ -27,7 +38,8 @@
                             </div>
                         </form>
                     </div>
-                </div>  
+                </div>
+
                 <div class="columns">
                     <div class="column">
                         <form class = "field">
@@ -37,6 +49,7 @@
                             </div>
                         </form>
                     </div>
+
                     <div class="column">
                         <form class = "field">
                             <label class="label has-text-grey-lighter">Returning:</label>
@@ -44,28 +57,35 @@
                                 <input class="input has-background-grey-lighter	" id = "end-date" type="date" name="End-Date">
                             </div>
                         </form>
-                        
                     </div>
-                </div> 
+                </div>
+
                 <div class="columns">
                     <div class="column">
                         <button class="button is-small is-fullwidth is-link has-text-grey-lighter">Search &nbsp;<i class="fas fa-luggage-cart"></i></button>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
     
+    <!-- packing summary -->
     <div>
         <div class = "summary"></div>
     </div>
 
+    <!-- day-by-day -->
     <div>
         <div class = "days"></div>
     </div>
+
+    <!-- map showing clothing store locations -->
     <div>
         <div class = "map"></div>
     </div>
 
+    <script src=assets/js/main.js></script>
 </body>
+
 </html>
