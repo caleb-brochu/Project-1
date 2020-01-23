@@ -1,0 +1,53 @@
+*
+{
+    box-sizing: border-box;
+    background-color: rgb(48, 48, 48) ;
+    color: lightgray;
+}
+
+body
+{
+    width: 100%;
+}
+.margin
+{
+    margin: 20px auto; 
+}
+.padding
+{
+    padding: 10px;
+}
+.bottom-border
+{
+    border-bottom: solid lightgray 5px;
+}
+.bottom-border-thin
+{
+    border-bottom: solid lightgray 1px;
+    width: 100%;
+}
+.fa-luggage-cart
+{
+    background: none;
+}
+.columns
+{
+    margin: 0;
+    padding: 0;
+}
+.column
+{
+    padding: 3px 0;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+#summary{
+    width: 95%;
+    margin: 100px auto;
+}
+.summaryHeader{
+    font-size: 16pt;
+}
