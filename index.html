@@ -14,7 +14,7 @@
     <!-- icons -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <!-- our CSS -->
-    <script src="assets/css/style.css"></script>
+    <link rel="stylesheet" href="assets/CSS/style.css"></link>
     <!-- time -->
     <script src="assets/js/moment.js"></script>
 </head>
@@ -45,7 +45,7 @@
                         <form class = "field">
                             <label class="label has-text-grey-lighter">Leaving:</label>
                             <div class="control">
-                                <input class="input has-background-grey-lighter	" id = "start-date"type="date" name="Start-Date" >
+                                <input class="input has-background-grey-lighter	" id = "start-date" type="date" name="Start-Date" >
                             </div>
                         </form>
                     </div>
@@ -71,19 +71,89 @@
     </div>
     
     <!-- packing summary -->
-    <div>
-        <div class = "summary"></div>
+  
+    <div id = "summary">
+        <div class="columns has-background-dark" data-day="">
+            <div class="column has-text-grey-lighter has-text-centered">
+                <div class="bottom-border $section-padding summaryHeader">Summary</div>
+                    
+                <div class="columns is-mobile">
+                    <div class="column has-text-centered has-text-grey-lighter">
+                        <div class="location">Location</div>
+                    </div>
+                    <div class="column has-text-centered has-text-grey-lighter">
+                        <div class="location">Location</div>
+                    </div>
+                </div>
+                    <div class="columns is-desktop">
+                        <div class="column has-text-grey-lighter">
+                            <div class="card">
+                                <header class="card-header">
+                                  <p class="card-header-title">
+                                    Jacket
+                                  </p>
+                                </header>
+                                <div class="card-content">
+                                  <div class="content">
+                                    Jackets Content</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column has-text-grey-lighter">
+                            <div class="card">
+                                <header class="card-header">
+                                  <p class="card-header-title">
+                                    Tops
+                                  </p>
+                                </header>
+                                <div class="card-content">
+                                  <div class="content">
+                                    Tops Content</div>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="column has-text-grey-lighter">
+                            <div class="card">
+                                <header class="card-header">
+                                  <p class="card-header-title">
+                                    Bottoms
+                                  </p>
+                                </header>
+                                <div class="card-content">
+                                  <div class="content">
+                                    Bottoms Content</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column has-text-grey-lighter">
+                            <div class="card">
+                                <header class="card-header">
+                                  <p class="card-header-title">
+                                    Footware
+                                  </p>
+                                </header>
+                                <div class="card-content">
+                                  <div class="content">
+                                    Footware Content</div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+   
 
     <!-- day-by-day -->
-    <div>
-        <div class = "days"></div>
-    </div>
+    
+    <div id = "days"></div>
+    
 
     <!-- map showing clothing store locations -->
-    <div>
-        <div class = "map"></div>
-    </div>
+   
+    <div id = "map"></div>
+ 
 
     <script src=assets/js/main.js></script>
 </body>

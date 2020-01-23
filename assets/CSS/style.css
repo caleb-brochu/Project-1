@@ -1,0 +1,11 @@
+*{
+    box-sizing: border-box;
+}
+
+#summary{
+    width: 95%;
+    margin: 100px auto;
+}
+.summaryHeader{
+    font-size: 16pt;
+}
