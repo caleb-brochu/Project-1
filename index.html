@@ -14,62 +14,71 @@
     <!-- icons -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <!-- our CSS -->
-    <script src="assets/css/style.css"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
     <!-- time -->
     <script src="assets/js/moment.js"></script>
 </head>
 
-<body>
+<body class="has-background-dark">
     <!-- Header: location, Start date, End date -->
-    <div id = header class="hero is-dark"> 
-        <div class = "container has-text-center">
-            <br>
-            <h1 class="title is-size-1 has-text-weight-bold has-text-grey-lighter">Suitcase &nbsp;<i class="fas fa-suitcase-rolling"></i></h1>
-        </div>
-
-        <div class="hero-body">
-            <div class="container is-desktop">
-                <div class="columns">
-                    <div class="column">
-                        <form class = "field">
-                            <label class="label has-text-grey-lighter">Destination:</label>
-                            <div class="control">
-                                <input class="input has-background-grey-lighter	" id = "destination" type="text" name="Destination" >
-                            </div>
-                        </form>
+    <div class="bottom-border">   
+        <div id = header class="hero"> 
+            <div class = "container has-text-center">
+                <br>
+                <h1 class="title is-size-1 has-text-weight-bold  has-text-grey-lighter">Suitcase &nbsp;<i class="fas fa-suitcase-rolling"></i></h1>
+            </div>
+            <div class="hero-body">
+                <div class="container is-desktop">
+                    <div class="columns">
+                        <div class="column">
+                            <form class = "field">
+                                <label class="label  has-text-grey-lighter">Destination:</label>
+                                <div class="control">
+                                    <input class="input has-background-grey-lighter	" id = "destination" type="text" name="Destination" >
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column">
+                            <form class = "field">
+                                <label class="label  has-text-grey-lighter">Leaving:</label>
+                                <div class="control">
+                                    <input class="input has-background-grey-lighter	" id = "start-date"type="date" name="Start-Date" >
+                                </div>
+                            </form>
+                        </div>
+                        <div class="column">
+                            <form class = "field">
+                                <label class="label has-text-grey-lighter">Returning:</label>
+                                <div class="control">
+                                    <input class="input has-background-grey-lighter	" id = "end-date" type="date" name="End-Date">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column">
+                            <button class="button is-small is-fullwidth is-link">Search &nbsp;<i class="fas fa-luggage-cart"></i></button>
+                        </div>
                     </div>
                 </div>
-
-                <div class="columns">
-                    <div class="column">
-                        <form class = "field">
-                            <label class="label has-text-grey-lighter">Leaving:</label>
-                            <div class="control">
-                                <input class="input has-background-grey-lighter	" id = "start-date"type="date" name="Start-Date" >
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="column">
-                        <form class = "field">
-                            <label class="label has-text-grey-lighter">Returning:</label>
-                            <div class="control">
-                                <input class="input has-background-grey-lighter	" id = "end-date" type="date" name="End-Date">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="columns">
-                    <div class="column">
-                        <button class="button is-small is-fullwidth is-link has-text-grey-lighter">Search &nbsp;<i class="fas fa-luggage-cart"></i></button>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
-    
+        <div class="columns" data-day="">
+            <div class="column has-text-centered">
+                <div class="bottom-border-thin column">Date</div>
+                <div class="columns is-mobile">
+                    <div class="column">
+                       <p>Weather</p>
+                    </div>
+                    <div class="column">
+                        <p>Suggestions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     <!-- packing summary -->
     <div>
         <div class = "summary"></div>
