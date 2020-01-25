@@ -19,6 +19,45 @@ let startDate;
 let endDate;
 let forecastLink;
 let weatherArray = [];
+let clothesSummary = {};
+let tops = {};
+let bottoms = {};
+let accessories = {};
+let footwear = {};
+
+let clothesMaps = {
+    "coat" : "tops",
+    "heavy shirt" : "tops",
+    "heavy pants" : "bottoms",
+    "gloves" : "accessories",
+    "heavy hat" : "accessories",
+    "boots" : "footwear",
+    "wool socks" : "footwear",
+    "jacket" : "tops",
+    "long sleeve shirt" : "tops",
+    "pants" : "bottoms",
+    "socks" : "footwear",
+    "T-Shirt" : "tops",
+    "shorts" : "bottoms",
+    "sandals" : "footwear",
+
+    "underwear" : "bottoms",
+
+    // clothes based on precipitation
+    "rain coat" : "accessories",
+    "umbrella" : "accessories",
+    "scarf" : "accessories",
+    "bounce house" : "accessories"
+};
+
+let clothesStrToVar = {
+    "tops" : tops,
+    "bottoms" : bottoms,
+    "footwear" : footwear,
+    "accessories" : accessories
+}
+
+let needOnlyOne = new Set(["coat","gloves","boots","jacket","rain coat","umbrella","scarf","bounce house"]);
 
 function updateClothing(loc,initDate,finalDate){
     startDate = initDate;
@@ -29,8 +68,9 @@ function updateClothing(loc,initDate,finalDate){
                 .then(function (forecastLink){
                     fetchForecast(forecastLink)
                         .then(function (){
-                            console.log(weatherArray);
+                            //console.log(weatherArray);
                             generateDailyHtml(weatherArray);
+                            updateClothesSummary();
                         });
                 });
         });
@@ -83,7 +123,7 @@ function fetchForecast(forecastLink){
 function createWeatherObject(weatherResponse){
     
     weatherObject = Object();
-    console.log(weatherResponse);
+    //console.log(weatherResponse);
     let weatherPeriods = weatherResponse.properties.periods;
     
     maxDays = moment(endDate,"YYYY-MM-DD").diff(moment(),"d");
@@ -114,7 +154,7 @@ function createWeatherObject(weatherResponse){
 // generate daily html from weather data
 function generateDailyHtml(weatherArray) {
     $("#days").empty();
-    for (i=0;i<weatherArray.length;i++){
+    for (i = 0; i < weatherArray.length; i++){
         let weatherDiv = $("<div>").addClass("column has-text-centered has-text-grey-lighter");
         weatherDiv.text("Weather");
         let temp = $("<div>").text(`${weatherArray[i].temp}°F`);
@@ -126,6 +166,10 @@ function generateDailyHtml(weatherArray) {
 
         let suggestionDiv = $("<div>").addClass("column has-text-centered has-text-grey-lighter");
         suggestionDiv.text("Suggestions");
+
+        suggestionObject = getSuggestions(weatherArray[i]);
+        placeDaySuggestions(suggestionObject,suggestionDiv);
+
         columnsDiv = $("<div>").addClass("columns is-mobile");
         columnsDiv.append(weatherDiv);
         columnsDiv.append(suggestionDiv);
@@ -159,6 +203,106 @@ function generateDailyHtml(weatherArray) {
     // </div>
 }
 
+function getSuggestions(weather){
+    let temp = weather.temp;
+    let precip = weather.precip.toLowerCase();
+    let s = {};
+
+    // let heavyJackets = 0;
+    // let lightJackets = 0;
+    // let tShirts = 0;
+
+    // let tops = 0;
+    // let bottoms = 0;
+    // let accessories = 0;
+    
+    // clothes based on temperature
+    if ( temp <= 30 ){
+        s.coat = "coat";
+        s.heavyShirt = "heavy shirt";
+        s.heavyPants = "heavy pants";
+        s.gloves = "gloves";
+        s.heavyHat = "heavy hat";
+        s.boots = "boots";
+        s.woolSocks = "wool socks";
+    }
+    else if( temp <= 65 ){
+        s.jacket = "jacket";
+        s.longSleeve = "long sleeve shirt";
+        s.pants = "pants";
+        s.socks = "socks";
+    }
+    else{
+        s.tShirt = "T-Shirt";
+        s.shorts = "shorts";
+        s.sandals = "sandals";
+    }
+
+    s.underwear = "underwear";
+
+    // clothes based on precipitation
+    if ( precip.includes("light rain") ){
+        s.rainCoat = "rain coat";
+    }
+    else if ( precip.includes("rain") ){
+        s.umbrella = "umbrella";
+    }
+
+    if ( precip.includes("snow") ){
+        s.scarf = "scarf";
+    }
+
+    if ( precip.includes("hail") ){
+        s.bounceHouse = "bounce house";
+    }
+
+    // increment number of clothing item in category (tops, bottoms, ...)
+    for (objStr of Object.values(s)){
+        let clothesCatObj = clothesStrToVar[clothesMaps[objStr]];
+        if (objStr in clothesCatObj){
+            clothesCatObj[objStr] += 1;
+        }
+        else{
+            clothesCatObj[objStr] = 1;
+        }
+    }
+
+    return s;
+}
+
+function placeDaySuggestions(suggs,sDiv){
+    let ul = $("<ul>")
+    for (let [key, value] of Object.entries(suggs)){
+        ul.append( $("<li>").text(value) );
+    }
+    sDiv.append(ul);
+}
+
+function updateClothesSummary(){
+    //$("#tops").append("<ul>");
+    //$("#bottoms").append("<ul>");
+    //$("#accessories").append("<ul>");
+    //$("#footwear").append("<ul>");
+
+    populateSummaryCat($("#tops"),tops);
+    populateSummaryCat($("#bottoms"),bottoms);
+    populateSummaryCat($("#accessories"),accessories);
+    populateSummaryCat($("#footwear"),footwear);
+}
+
+function populateSummaryCat(curDiv,summaryObj){
+    for (let [key, value] of Object.entries(summaryObj)){
+        if (key in needOnlyOne){
+            curDiv.append($("<li>").text(`${key}: 1`));
+        }
+        else{
+            curDiv.append($("<li>").text(`${key}: ${value}`));
+        }
+    }
+}    
+
+
+
 //getLatLong("seattle")
 
 // // check end date is after start date
@@ -171,4 +315,4 @@ script.type = 'text/javascript';
 script.src = 'https://momentjs.com/downloads/moment.js';
 document.head.appendChild(script);
 
-updateClothing("seattle","2020-01-22","2020-01-25");
+updateClothing("seattle","2020-01-25","2020-01-29");
