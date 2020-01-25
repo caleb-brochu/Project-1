@@ -19,14 +19,14 @@
     <script src="assets/js/moment.js"></script>
 </head>
 
-<body class="has-background-dark">
+<body class="has-background-grey-darker">
     <!-- Header: location, Start date, End date -->
-    <div id = "header">
+    <div id = "header" class = "has-background-dark">
         <div class="bottom-border">   
             <div class="hero"> 
                 <div class = "container has-text-center">
                     <br>
-                    <h1 class="title is-size-1 has-text-weight-bold  has-text-grey-lighter">Suitcase &nbsp;<i class="fas fa-suitcase-rolling"></i></h1>
+                    <h1 class="title is-size-1 has-text-weight-bold has-text-grey-lighter">Suitcase &nbsp;<i class="fas fa-suitcase-rolling"></i></h1>
                 </div>
                 <div class="hero-body">
                     <div class="container is-desktop"></div>
@@ -43,7 +43,7 @@
                         <div class="columns">
                             <div class="column">
                                 <form class = "field">
-                                    <label class="label  has-text-grey-lighter">Leaving:</label>
+                                    <label class="label has-text-grey-lighter">Leaving:</label>
                                     <div class="control">
                                         <input class="input has-background-grey-lighter	is-medium" id = "start-date"type="date" name="Start-Date" >
                                     </div>
@@ -58,27 +58,20 @@
                                 </form>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="columns">
-                        <div class="column">
-                            <button id = "searchButton" class="button is-small is-fullwidth is-link">Search &nbsp;<i class="fas fa-luggage-cart"></i></button>
-
                         <div class="columns">
                             <div class="column">
                                 <button id ="searchBtn" class="button is-medium is-fullwidth is-link">Search &nbsp;<i class="fas fa-luggage-cart"></i></button>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    
 
     <!-- packing summary --> 
-    <div id = "summary">
-        <div class="columns has-background-dark" data-day="">
+    <div id = "summary" class = "has-background-dark">
+        <div class="columns" data-day="">
             <div class="column has-text-grey-lighter has-text-centered">
                 <div class="bottom-border $section-padding summaryHeader">Summary</div>
                     
@@ -94,12 +87,12 @@
                         <div class="column has-text-grey-lighter">
                             <div class="card">
                                 <header class="card-header has-text-center has-background-dark">
-                                  <p class="card-header-title  has-text-white-ter has-text-center">
+                                  <p class="card-header-title  has-text-grey-lighter has-text-center">
                                     Accessories
                                   </p>
                                 </header>
-                                <div class="card-content">
-                                  <div class="content">
+                                <div class="card-content has-background-grey-lighter">
+                                  <div class="content ">
                                     Accessories Content</div>
                                 </div>
                             </div>
@@ -107,11 +100,11 @@
                         <div class="column has-text-grey-lighter">
                             <div class="card">
                                 <header class="card-header has-text-center has-background-dark">
-                                  <p class="card-header-title  has-text-white-ter has-text-center">
+                                  <p class="card-header-title  has-text-grey-lighter has-text-center">
                                     Tops
                                   </p>
                                 </header>
-                                <div class="card-content">
+                                <div class="card-content has-background-grey-lighter">
                                     <div class="content">
                                         Tops Content
                                     </div>
@@ -121,11 +114,11 @@
                         <div class="column has-text-grey-lighter">
                             <div class="card">
                                 <header class="card-header has-text-center has-background-dark">
-                                  <p class="card-header-title has-text-white-ter has-text-center">
+                                  <p class="card-header-title has-text-grey-lighter has-text-center">
                                     Bottoms
                                   </p>
                                 </header>
-                                <div class="card-content">
+                                <div class="card-content has-background-grey-lighter">
                                   <div class="content">
                                     Bottoms Content</div>
                                 </div>
@@ -134,11 +127,11 @@
                         <div class="column has-text-grey-lighter">
                             <div class="card">
                                 <header class="card-header has-background-dark">
-                                  <p class="card-header-title has-text-white-ter has-text-center">
+                                  <p class="card-header-title has-text-grey-lighter has-text-center">
                                     Footware
                                   </p>
                                 </header>
-                                <div class="card-content">
+                                <div class="card-content has-background-grey-lighter">
                                   <div class="content">
                                     Footware Content</div>
                                 </div>
@@ -150,10 +143,10 @@
         </div>
 
     <!-- Day Div -->
-    <div id = "day">
+    <div id = "day" class = "has-background-dark">
         <div class="columns" data-day="">
             <div class="column has-text-centered">
-                <div class="bottom-border-thin column">Date</div>
+                <div class="bottom-border-thin column" id ="date-header">Date</div>
                 <div class="columns is-mobile">
                     <div class="column">
                        <p>Weather</p>
@@ -166,18 +159,12 @@
         </div>
     </div>
 
-    </div>
    
-
-    <!-- day-by-day -->
     
-    <div id = "days"></div>
-    
-
     <!-- map showing clothing store locations -->
-   
-    <div id = "map"></div>
- 
+    <div id = "mapDiv" class = "has-background-dark">
+        <div id = "map"></div>
+    </div>
 
     <script src=assets/js/main.js></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4AAkTCm_w_C8rC3a3aMGNL9WErabkNTg&callback=initMap"
