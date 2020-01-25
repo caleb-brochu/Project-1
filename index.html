@@ -21,45 +21,47 @@
 
 <body class="has-background-dark">
     <!-- Header: location, Start date, End date -->
-    <div class="bottom-border">   
-        <div id = header class="hero"> 
-            <div class = "container has-text-center">
-                <br>
-                <h1 class="title is-size-1 has-text-weight-bold  has-text-grey-lighter">Suitcase &nbsp;<i class="fas fa-suitcase-rolling"></i></h1>
-            </div>
-            <div class="hero-body">
-                <div class="container is-desktop"></div>
-                    <div class="columns">
-                        <div class="column">
-                            <form class = "field">
-                                <label class="label  has-text-grey-lighter">Destination:</label>
-                                <div class="control">
-                                    <input class="input has-background-grey-lighter	" id = "destination" type="text" name="Destination" >
-                                </div>
-                            </form>
+    <div id = "header">
+        <div class="bottom-border">   
+            <div class="hero"> 
+                <div class = "container has-text-center">
+                    <br>
+                    <h1 class="title is-size-1 has-text-weight-bold  has-text-grey-lighter">Suitcase &nbsp;<i class="fas fa-suitcase-rolling"></i></h1>
+                </div>
+                <div class="hero-body">
+                    <div class="container is-desktop"></div>
+                        <div class="columns">
+                            <div class="column">
+                                <form class = "field">
+                                    <label class="label has-text-grey-lighter">Destination:</label>
+                                    <div class="control">
+                                        <input class="input has-background-grey-lighter	is-medium" id = "destination" type="text" name="Destination" >
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    <div class="columns">
-                        <div class="column">
-                            <form class = "field">
-                                <label class="label  has-text-grey-lighter">Leaving:</label>
-                                <div class="control">
-                                    <input class="input has-background-grey-lighter	" id = "start-date"type="date" name="Start-Date" >
-                                </div>
-                            </form>
+                        <div class="columns">
+                            <div class="column">
+                                <form class = "field">
+                                    <label class="label  has-text-grey-lighter">Leaving:</label>
+                                    <div class="control">
+                                        <input class="input has-background-grey-lighter	is-medium" id = "start-date"type="date" name="Start-Date" >
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="column">
+                                <form class = "field">
+                                    <label class="label has-text-grey-lighter">Returning:</label>
+                                    <div class="control">
+                                        <input class="input has-background-grey-lighter	is-medium" id = "end-date" type="date" name="End-Date">
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="column">
-                            <form class = "field">
-                                <label class="label has-text-grey-lighter">Returning:</label>
-                                <div class="control">
-                                    <input class="input has-background-grey-lighter	" id = "end-date" type="date" name="End-Date">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="columns">
-                        <div class="column">
-                            <button class="button is-small is-fullwidth is-link">Search &nbsp;<i class="fas fa-luggage-cart"></i></button>
+                        <div class="columns">
+                            <div class="column">
+                                <button id ="searchBtn" class="button is-medium is-fullwidth is-link">Search &nbsp;<i class="fas fa-luggage-cart"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -75,43 +77,44 @@
                     
                 <div class="columns is-mobile">
                     <div class="column has-text-centered has-text-grey-lighter">
-                        <div class="location">Location</div>
+                        <div class="location">Location </div>
                     </div>
                     <div class="column has-text-centered has-text-grey-lighter">
-                        <div class="location">Location</div>
+                        <div class="location">Duration</div>
                     </div>
                 </div>
                     <div class="columns is-desktop">
                         <div class="column has-text-grey-lighter">
                             <div class="card">
-                                <header class="card-header">
-                                  <p class="card-header-title">
-                                    Jacket
+                                <header class="card-header has-text-center has-background-dark">
+                                  <p class="card-header-title  has-text-white-ter has-text-center">
+                                    Accessories
                                   </p>
                                 </header>
                                 <div class="card-content">
                                   <div class="content">
-                                    Jackets Content</div>
+                                    Accessories Content</div>
                                 </div>
                             </div>
                         </div>
                         <div class="column has-text-grey-lighter">
                             <div class="card">
-                                <header class="card-header">
-                                  <p class="card-header-title">
+                                <header class="card-header has-text-center has-background-dark">
+                                  <p class="card-header-title  has-text-white-ter has-text-center">
                                     Tops
                                   </p>
                                 </header>
                                 <div class="card-content">
-                                  <div class="content">
-                                    Tops Content</div>
+                                    <div class="content">
+                                        Tops Content
+                                    </div>
                                 </div>
                             </div>
                         </div> 
                         <div class="column has-text-grey-lighter">
                             <div class="card">
-                                <header class="card-header">
-                                  <p class="card-header-title">
+                                <header class="card-header has-text-center has-background-dark">
+                                  <p class="card-header-title has-text-white-ter has-text-center">
                                     Bottoms
                                   </p>
                                 </header>
@@ -123,8 +126,8 @@
                         </div>
                         <div class="column has-text-grey-lighter">
                             <div class="card">
-                                <header class="card-header">
-                                  <p class="card-header-title">
+                                <header class="card-header has-background-dark">
+                                  <p class="card-header-title has-text-white-ter has-text-center">
                                     Footware
                                   </p>
                                 </header>
@@ -140,6 +143,7 @@
         </div>
 
     <!-- Day Div -->
+    <div id = "day">
         <div class="columns" data-day="">
             <div class="column has-text-centered">
                 <div class="bottom-border-thin column">Date</div>
@@ -153,7 +157,7 @@
                 </div>
             </div>
         </div>
-
+    </div>
 
     </div>
    
