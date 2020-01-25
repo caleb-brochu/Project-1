@@ -1,39 +1,13 @@
 *
 {
     box-sizing: border-box;
-
-    color: lightgray;
-
 }
-
 body
 {
     width: 100%;
-    background-color: rgb(48, 48, 48);
-    margin-bottom: 50px;
+    padding-top: 10px;
     padding-bottom: 100px;
 }
-/*.margin
-{
-    margin: 20px auto; 
-}
-.padding
-{
-    padding: 10px;
-}
-.bottom-border
-{
-    border-bottom: solid lightgray 5px;
-}
-.bottom-border-thin
-{
-    border-bottom: solid lightgray 1px;
-    width: 100%;
-}
-.fa-luggage-cart
-{
-    background: none;
-}*/
 .columns
 {
     margin: 0 auto;
@@ -44,24 +18,22 @@ body
     margin-left: 5x;
     margin-right: 5px;
 }
-
 .has-background-dark
 {
     color: lightgray;
 }
-
-
 .summaryHeader
 {
-    font-size: 16pt;
+    font-size: 20pt;
     padding-bottom: 10px;
     border-bottom: solid lightgray 5px;
 }
-
-#header{
+#header
+{
     box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
     margin: 0 auto;
     width:95%;
+    padding-bottom: 20px;
 }
 #summary
 {
@@ -70,17 +42,23 @@ body
     padding-bottom:40px;
     box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
 }
-
-
-
-#map {
-    height: 100%;
-}
-
 #day
 {
     box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
     width: 95%;
-    margin: 25px auto;
+    margin: 0 auto;
+    padding-bottom:40px;
 }
-
+#date-header
+{
+    font-size: 20pt;
+    padding-bottom: 10px;
+    border-bottom: solid lightgray 5px;
+}
+#mapDiv
+{
+    padding: 20px;
+    box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+    margin: 20px auto;
+    width:95%;
+}
