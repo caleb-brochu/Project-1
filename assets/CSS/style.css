@@ -18,9 +18,21 @@ body
     margin-left: 5x;
     margin-right: 5px;
 }
+.margin
+{
+    margin: 15px 10px;
+}
+.rounded
+{
+    border-radius: 6px;
+}
 .has-background-dark
 {
     color: lightgray;
+}
+.has-background-grey-lighter
+{
+    color: black;
 }
 .summaryHeader
 {
@@ -34,6 +46,7 @@ body
     margin: 0 auto;
     width:95%;
     padding-bottom: 20px;
+    border-radius: 6px;
 }
 #summary
 {
@@ -41,15 +54,17 @@ body
     margin: 25px auto;
     padding-bottom:40px;
     box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+    border-radius: 6px;
 }
-#day
+#days
 {
     box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
     width: 95%;
     margin: 0 auto;
     padding-bottom:40px;
+    border-radius: 6px;
 }
-#date-header
+.date-header
 {
     font-size: 20pt;
     padding-bottom: 10px;
@@ -61,4 +76,21 @@ body
     box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
     margin: 20px auto;
     width:95%;
+    
 }
+
+li{
+    list-style-type: none;
+}
+.card-header{
+    border-radius: 6px 6px 0 0;
+}
+.card-content, .card{
+    height: 90%;
+    border-radius: 7px 7px 6px 6px;
+}
+.black-border
+{
+    box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 2px rgba(10,10,10,.02);
+}
+
