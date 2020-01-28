@@ -86,6 +86,7 @@ li{
     border-radius: 6px 6px 0 0;
 }
 .card-content, .card{
+    height: 90%;
     border-radius: 7px 7px 6px 6px;
 }
 .black-border
