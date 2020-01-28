@@ -18,9 +18,21 @@ body
     margin-left: 5x;
     margin-right: 5px;
 }
+.margin
+{
+    margin: 15px 10px;
+}
+.rounded
+{
+    border-radius: 6px;
+}
 .has-background-dark
 {
     color: lightgray;
+}
+.has-background-grey-lighter
+{
+    color: black;
 }
 .summaryHeader
 {
@@ -62,3 +74,8 @@ body
     margin: 20px auto;
     width:95%;
 }
+.black-border
+{
+    box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 2px rgba(10,10,10,.02);
+}
+
