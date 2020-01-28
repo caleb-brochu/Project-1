@@ -19,7 +19,6 @@ let startDate;
 let endDate;
 let forecastLink;
 let weatherArray = [];
-let clothesSummary = {};
 let tops = {};
 let bottoms = {};
 let accessories = {};
@@ -57,14 +56,20 @@ let clothesStrToVar = {
     "accessories" : accessories
 }
 
-let needOnlyOne = new Set(["coat","gloves","boots","jacket","rain coat","umbrella","scarf","bounce house"]);
+let needOnlyOne = new Set(["coat","gloves","boots","jacket","rain coat","umbrella","scarf","heavy hat","bounce house"]);
 
 function updateClothing(loc,initDate,finalDate){
-    clothesSummary = {};
     tops = {};
     bottoms = {};
     accessories = {};
     footwear = {};
+
+    clothesStrToVar = {
+        "tops" : tops,
+        "bottoms" : bottoms,
+        "footwear" : footwear,
+        "accessories" : accessories
+    }
 
     startDate = initDate;
     endDate = finalDate;
@@ -116,8 +121,6 @@ function fetchWeather(latLongArr){
 
 
 
-
-
 // function fetchForecast(forecastLink){
 //     return fetch(forecastLink)
 //         .then(function (response){
@@ -149,10 +152,7 @@ function createWeatherObject(weatherResponse){
     let curTime = moment();
     minDays = moment(startDate,"YYYY-MM-DD").diff(curTime,"d");
     maxDays = moment(endDate,"YYYY-MM-DD").diff(curTime,"d")+1;
-    //console.log(minDays);
-    //console.log(maxDays);
-    //console.log(endDate,maxDays,curTime);
-    //console.log();
+
     // weather.gov has max 14 day forecast
     if (maxDays > 13){
         maxDays = 13;
