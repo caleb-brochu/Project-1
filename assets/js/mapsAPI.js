@@ -7,7 +7,10 @@
  *
  * Notes: DONE, JUST NEED LAT AND LONG TO WORK
  */
-$("#map").css({height: '30%'});
+$("#map").css({
+    height: '350px',
+    style: 'border-radius: 6px'
+});
 var map;
 function initMap(coordinates) {
 
@@ -16,7 +19,6 @@ function initMap(coordinates) {
         zoom: 10
     });
 }
-
 
 function success(position) {
     var lat;
