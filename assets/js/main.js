@@ -33,8 +33,8 @@ $( document ).ready(function() {
  */
 function updatePlaceDuration(){
     let numDays = moment(endDate,"YYYY-MM-DD").diff(moment(startDate,"YYYY-MM-DD"),"d");
-    $("#s-destination").text(numDays);
-    $("#location").text($("#destination").val());
+    $("#duration").text(numDays + " days");
+    $("#s-destination").text($("#destination").val());
 }
 
 /**
