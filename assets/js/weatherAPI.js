@@ -321,9 +321,9 @@ function populateSummaryCat(curDiv,summaryObj){
 //     alert("End date must be after start date");
 // }
 
-var script = document.createElement('script');
-script.type = 'text/javascript';
-script.src = 'https://momentjs.com/downloads/moment.js';
-document.head.appendChild(script);
+// var script = document.createElement('script');
+// script.type = 'text/javascript';
+// script.src = 'https://momentjs.com/downloads/moment.js';
+// document.head.appendChild(script);
 
-updateClothing("seattle","2020-01-27","2020-01-30");
+// updateClothing("seattle","2020-01-27","2020-01-30");
