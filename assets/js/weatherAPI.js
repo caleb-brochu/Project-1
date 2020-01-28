@@ -140,17 +140,20 @@ function createWeatherObject(weatherResponse){
     weatherObject = Object();
     //console.log(weatherResponse);
     let weatherPeriods = weatherResponse.properties.periods;
-    
-    maxDays = moment(endDate,"YYYY-MM-DD").diff(moment(),"d");
-    minDays = moment(startDate,"YYYY-MM-DD").diff(moment(),"d");
-    
+    let curTime = moment();
+    minDays = moment(startDate,"YYYY-MM-DD").diff(curTime,"d");
+    maxDays = moment(endDate,"YYYY-MM-DD").diff(curTime,"d")+1;
+    //console.log(minDays);
+    //console.log(maxDays);
+    //console.log(endDate,maxDays,curTime);
+    //console.log();
     // weather.gov has max 14 day forecast
     if (maxDays > 13){
         maxDays = 13;
     }
 
     // loop through weather data for each day and generate object
-    for (i = minDays+1; i < maxDays+1; i++){
+    for (i = minDays+1; i <= maxDays+1; i++){
         let w = {};
         w["temp"] = weatherPeriods[i].temperature;
         w["precip"] = weatherPeriods[i].shortForecast;
@@ -170,9 +173,9 @@ function createWeatherObject(weatherResponse){
 
 // generate daily html from weather data
 function generateDailyHtml(weatherArray) {
-    $("#days").empty();
+    //$("#days").empty();
     for (i = 0; i < weatherArray.length; i++){
-        let weatherDiv = $("<div>").addClass("column has-text-centered has-text-grey-lighter");
+        let weatherDiv = $("<div>").addClass("column");
         weatherDiv.text("Weather");
         let temp = $("<div>").text(`${weatherArray[i].temp}°F`);
         weatherDiv.append(temp);
@@ -181,7 +184,7 @@ function generateDailyHtml(weatherArray) {
         let wIcon = $("<img>").attr("src",weatherArray[i].icon);
 
 
-        let suggestionDiv = $("<div>").addClass("column has-text-centered has-text-grey-lighter");
+        let suggestionDiv = $("<div>").addClass("column");
         suggestionDiv.text("Suggestions");
 
         suggestionObject = getSuggestions(weatherArray[i]);
@@ -191,14 +194,14 @@ function generateDailyHtml(weatherArray) {
         columnsDiv.append(weatherDiv);
         columnsDiv.append(suggestionDiv);
 
-        let dateDiv = $("<div>").addClass("bottom-border $section-padding");
+        let dateDiv = $("<div>").addClass("bottom-border-thin column date-header");
         dateDiv.text(weatherArray[i].date);
 
-        let colDiv = $("<div>").addClass("column has-text-grey-lighter has-text-centered");
+        let colDiv = $("<div>").addClass("column has-text-centered");
         colDiv.append(dateDiv);
         colDiv.append(columnsDiv);
 
-        let mainDiv = $("<div>").addClass("columns has-background-dark");
+        let mainDiv = $("<div>").addClass("columns");
         mainDiv.attr("data-day",i);
         mainDiv.append(colDiv);
         $("#days").append(mainDiv);
@@ -290,9 +293,17 @@ function getSuggestions(weather){
 function placeDaySuggestions(suggs,sDiv){
     let ul = $("<ul>")
     for (let [key, value] of Object.entries(suggs)){
-        ul.append( $("<li>").text(value) );
+        ul.append( $("<li>").text(titleCase(value)) );
     }
     sDiv.append(ul);
+}
+
+function titleCase(string) {
+    var sentence = string.toLowerCase().split(" ");
+    for(var i = 0; i< sentence.length; i++){
+       sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+    }
+    return sentence.join(" ");
 }
 
 function updateClothesSummary(){
@@ -310,10 +321,10 @@ function updateClothesSummary(){
 function populateSummaryCat(curDiv,summaryObj){
     for (let [key, value] of Object.entries(summaryObj)){
         if (key in needOnlyOne){
-            curDiv.append($("<li>").text(`${key}: 1`));
+            curDiv.append($("<li>").text(`${titleCase(key)}: 1`));
         }
         else{
-            curDiv.append($("<li>").text(`${key}: ${value}`));
+            curDiv.append($("<li>").text(`${titleCase(key)}: ${value}`));
         }
     }
 }    
@@ -327,10 +338,14 @@ function populateSummaryCat(curDiv,summaryObj){
 //     alert("End date must be after start date");
 // }
 
-var script = document.createElement('script');
-script.type = 'text/javascript';
-script.src = 'https://momentjs.com/downloads/moment.js';
-document.head.appendChild(script);
+// var script = document.createElement('script');
+// script.type = 'text/javascript';
+// script.src = 'https://momentjs.com/downloads/moment.js';
+// document.head.appendChild(script);
 
+<<<<<<< HEAD
 updateClothing("seattle","2020-01-25","2020-01-29");
 
+=======
+// updateClothing("seattle","2020-01-27","2020-01-30");
+>>>>>>> aba9b62e293b970df2bae7514aaa93f9a91a7ecb
