@@ -276,9 +276,17 @@ function getSuggestions(weather){
 function placeDaySuggestions(suggs,sDiv){
     let ul = $("<ul>")
     for (let [key, value] of Object.entries(suggs)){
-        ul.append( $("<li>").text(value) );
+        ul.append( $("<li>").text(titleCase(value)) );
     }
     sDiv.append(ul);
+}
+
+function titleCase(string) {
+    var sentence = string.toLowerCase().split(" ");
+    for(var i = 0; i< sentence.length; i++){
+       sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+    }
+    return sentence.join(" ");
 }
 
 function updateClothesSummary(){
@@ -296,10 +304,10 @@ function updateClothesSummary(){
 function populateSummaryCat(curDiv,summaryObj){
     for (let [key, value] of Object.entries(summaryObj)){
         if (key in needOnlyOne){
-            curDiv.append($("<li>").text(`${key}: 1`));
+            curDiv.append($("<li>").text(`${titleCase(key)}: 1`));
         }
         else{
-            curDiv.append($("<li>").text(`${key}: ${value}`));
+            curDiv.append($("<li>").text(`${titleCase(key)}: ${value}`));
         }
     }
 }    
