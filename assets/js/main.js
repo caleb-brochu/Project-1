@@ -1,27 +1,10 @@
 $( document ).ready(function() {
-
+    getUserLocation();
+    // initMap(getLatLong(getUserLocation()));
     $("#searchBtn").click(() =>  {
-        console.log(updateClothing(getDestination(), getStartDate(), getEndDate()));
-        // Fetch latitude and longitude
-        // let locationFetch = Promise.resolve(getLatLong(getDestination()));
-        // let locationResolve = Promise.resolve(locationFetch);
-        // locationResolve.then((latLongArr) => {
-        //     // fetch forecast link
-        //     // console.log(fetchWeather(latLongArr));
-        //     let weatherFetch = Promise.resolve(fetchWeather(latLongArr));
-        //     let weatherResolve = Promise.resolve(weatherFetch);
-        //     weatherResolve.then((weatherFetch) => {
-        //         // fetch forecast
-        //         let forecastFetch = Promise.resolve(fetchForecast(weatherFetch));
-        //         let forecastResolve = Promise.resolve(forecastFetch);
-        //         console.log(forecastResolv     e);
-            // });
-    
-
-
         emptyItinerary();
-        let stay = getLengthOfStay(getStartDate(), getEndDate());
-        itinerary(stay);
+        updateClothing(getDestination(), getStartDate(), getEndDate());
+
     });
 });
     
@@ -41,18 +24,16 @@ $( document ).ready(function() {
 
 /**
  * Function description
- * Gets information from the user (start and end date for trip and location)
+ * Gets start and end date of trip and calculates the duration of the trip 
  *
  * @param - Takes no params
  * @return - Returns destination city as a string, start-date as a string, and end-date as a string
  *
  */
-function getLengthOfStay(startDate, endDate) {
-    // If 2 out of 3 of the input fields are filled in, have the page load once the 3rd is complete
-    
-    var lengthOfStay = endDate.diff(startDate, "days");
-
-    return lengthOfStay;
+function updatePlaceDuration(){
+    let numDays = moment(endDate,"YYYY-MM-DD").diff(moment(startDate,"YYYY-MM-DD"),"d");
+    $("#s-destination").text(numDays);
+    $("#location").text($("#destination").val());
 }
 
 /**
@@ -102,12 +83,12 @@ function getEndDate() {
  * @return - Does not return anything
  *
  */
-function itinerary(lengthOfStay) {
-    for (let i = 0; i < lengthOfStay; i++) {
-        $("#day").append("<div class = 'row'>Testing</div>")
+// function itinerary(lengthOfStay) {
+//     for (let i = 0; i < lengthOfStay; i++) {
+//         $("#day").append("<div class = 'row'>Testing</div>")
         
-    }
-}
+//     }
+// }
 
 /**
  * Function description
@@ -121,3 +102,19 @@ function emptyItinerary() {
     $("#day").empty();
 }
 
+
+        // Fetch latitude and longitude
+        // let locationFetch = Promise.resolve(getLatLong(getDestination()));
+        // let locationResolve = Promise.resolve(locationFetch);
+        // locationResolve.then((latLongArr) => {
+        //     // fetch forecast link
+        //     // console.log(fetchWeather(latLongArr));
+        //     let weatherFetch = Promise.resolve(fetchWeather(latLongArr));
+        //     let weatherResolve = Promise.resolve(weatherFetch);
+        //     weatherResolve.then((weatherFetch) => {
+        //         // fetch forecast
+        //         let forecastFetch = Promise.resolve(fetchForecast(weatherFetch));
+        //         let forecastResolve = Promise.resolve(forecastFetch);
+        //         console.log(forecastResolv     e);
+            // });
+    
