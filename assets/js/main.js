@@ -1,21 +1,31 @@
-$("#map").css({height: "250px"});
-var map;
-function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -35, lng: 150.644},
-        zoom: 8
-    });
-}
-
 $( document ).ready(function() {
-    $("#searchButton").mousedown(function() {
+
+    $("#searchBtn").click(() =>  {
+        console.log(updateClothing(getDestination(), getStartDate(), getEndDate()));
+        // Fetch latitude and longitude
+        // let locationFetch = Promise.resolve(getLatLong(getDestination()));
+        // let locationResolve = Promise.resolve(locationFetch);
+        // locationResolve.then((latLongArr) => {
+        //     // fetch forecast link
+        //     // console.log(fetchWeather(latLongArr));
+        //     let weatherFetch = Promise.resolve(fetchWeather(latLongArr));
+        //     let weatherResolve = Promise.resolve(weatherFetch);
+        //     weatherResolve.then((weatherFetch) => {
+        //         // fetch forecast
+        //         let forecastFetch = Promise.resolve(fetchForecast(weatherFetch));
+        //         let forecastResolve = Promise.resolve(forecastFetch);
+        //         console.log(forecastResolv     e);
+            // });
+    
+
+
         emptyItinerary();
         let stay = getLengthOfStay(getStartDate(), getEndDate());
         itinerary(stay);
-
-
     });
+});
     
+    // Keep this stuff for enter presses
     // // Do this stuff when enter button is pressed
     // $("#searchButton").bind("enterKey", function(e) {
     //     console.log("Enter has been pressed")
@@ -27,21 +37,7 @@ $( document ).ready(function() {
     //     }
     // });
 
-})
-
-/**
- * Function description
- * Renders the User Interface
- *
- * @param - Takes no params
- * @return - Does not return Anything
- *
- */
-function renderUI() {
-    // Summary
-    // Map
-    // Itinerary
-}
+// });
 
 /**
  * Function description
@@ -61,11 +57,10 @@ function getLengthOfStay(startDate, endDate) {
 
 /**
  * Function description
- * Dynamically appends (insert div) div to include an itinerary for the range of dates
- * Suggests types of clothing based on weather, use switch case
+ * Takes the value from the "Destination" textbox
  *
- * @param - 
- * @return - Does not return anything
+ * @param - Does not take any params
+ * @return - Returns the value from the "Destination" textbox
  *
  */
 function getDestination() {
@@ -74,11 +69,10 @@ function getDestination() {
 
 /**
  * Function description
- * Dynamically appends (insert div) div to include an itinerary for the range of dates
- * Suggests types of clothing based on weather, use switch case
+ * Takes the value from the 'Leaving' Calendar Date using moment.js
  *
- * @param - 
- * @return - Does not return anything
+ * @param - Does not take any params
+ * @return - Returns the start date for the trip
  *
  */
 function getStartDate() {
@@ -87,11 +81,10 @@ function getStartDate() {
 
 /**
  * Function description
- * Dynamically appends (insert div) div to include an itinerary for the range of dates
- * Suggests types of clothing based on weather, use switch case
- *
- * @param - 
- * @return - Does not return anything
+ * Takes the value from the 'Returning' Calendar Date using moment.js
+ * 
+ * @param - Does not take any params
+ * @return - Returns the end date of the trip
  *
  */
 function getEndDate() {
@@ -118,47 +111,13 @@ function itinerary(lengthOfStay) {
 
 /**
  * Function description
- * Displays the map
+ * Empties the (previously) generated itinerary before a new search
  *
- * @param - Location
- * @return - Does not return Anything
+ * @param - Does not take any params
+ * @return - Does not return does not return anything
  *
  */
 function emptyItinerary() {
     $("#day").empty();
 }
 
-/**
- * Function description
- * Displays the map
- *
- * @param - Location
- * @return - Does not return Anything
- *
- */
-
-
-
-
-// AIzaSyA4AAkTCm_w_C8rC3a3aMGNL9WErabkNTg
-
-// Google maps api key
-
-// Delete this when files are merged!!!!!!!!!!!!
-// function getLatLong(place){
-    
-//     let units = "imperial"
-//     let url = `http://api.openweathermap.org/data/2.5/weather?&APPID=${openWeatherApiKey}&q=${place}&units=${units}`;
-        
-//     return fetch (url)
-//         .then(function (response){
-//             return response.json();
-//         })
-//         .then(function (json){
-//             latLong = [json.coord.lat,json.coord.lon];
-//             return latLong; //[json.coord.lon,json.coord.lat];
-//         });
-// }
-
-// $("#start-date").attr("min",moment().format("YYYY-MM-DD"))
-//$("#end-date").attr("min",moment().format("YYYY-MM-DD"))

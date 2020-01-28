@@ -91,7 +91,6 @@ function getLatLong(place){
         });
 }
 
-
 function fetchWeather(latLongArr){
     let latitude = latLongArr[0];
     let longitude = latLongArr[1];
@@ -109,16 +108,32 @@ function fetchWeather(latLongArr){
         });
 }
 
-function fetchForecast(forecastLink){
+
+
+
+
+// function fetchForecast(forecastLink){
+//     return fetch(forecastLink)
+//         .then(function (response){
+//             return response.json();
+//         })
+//         .then(function (json){
+//             //console.log(json);
+//             return createWeatherObject(json);
+//         });
+// };
+
+function fetchForecast(forecastLink) {
     return fetch(forecastLink)
-        .then(function (response){
+        .then((response) => {
             return response.json();
         })
-        .then(function (json){
-            //console.log(json);
+        .then((json) => {
             return createWeatherObject(json);
-        });
-};
+        })
+}   
+
+
 
 function createWeatherObject(weatherResponse){
     
@@ -150,6 +165,8 @@ function createWeatherObject(weatherResponse){
     // weatherObject.uvIndex = daily.uvIndex;
     return weatherArray;
 }
+
+
 
 // generate daily html from weather data
 function generateDailyHtml(weatherArray) {
@@ -316,3 +333,4 @@ script.src = 'https://momentjs.com/downloads/moment.js';
 document.head.appendChild(script);
 
 updateClothing("seattle","2020-01-25","2020-01-29");
+
