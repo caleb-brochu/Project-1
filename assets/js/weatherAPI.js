@@ -158,8 +158,8 @@ function createWeatherObject(weatherResponse){
 function generateDailyHtml(weatherArray) {
     //$("#days").empty();
     for (i = 0; i < weatherArray.length; i++){
-        let weatherDiv = $("<div>").addClass("column");
-        weatherDiv.text("Weather");
+        let weatherDiv = $("<div>").addClass("column has-background-grey-lighter margin rounded black-border");
+        // weatherDiv.text("Weather");
         let temp = $("<div>").text(`${weatherArray[i].temp}°F`);
         weatherDiv.append(temp);
         let precip = $("<div>").text(weatherArray[i].precip);
@@ -167,13 +167,13 @@ function generateDailyHtml(weatherArray) {
         let wIcon = $("<img>").attr("src",weatherArray[i].icon);
 
 
-        let suggestionDiv = $("<div>").addClass("column");
-        suggestionDiv.text("Suggestions");
+        let suggestionDiv = $("<div>").addClass("column has-background-grey-lighter margin rounded black-border");
+        //suggestionDiv.text("Suggestions");
 
         suggestionObject = getSuggestions(weatherArray[i]);
         placeDaySuggestions(suggestionObject,suggestionDiv);
 
-        columnsDiv = $("<div>").addClass("columns is-mobile");
+        columnsDiv = $("<div>").addClass("columns is-mobile has-text-left");
         columnsDiv.append(weatherDiv);
         columnsDiv.append(suggestionDiv);
 
@@ -303,7 +303,7 @@ function updateClothesSummary(){
 
 function populateSummaryCat(curDiv,summaryObj){
     for (let [key, value] of Object.entries(summaryObj)){
-        if (key in needOnlyOne){
+        if (needOnlyOne.has(key)){
             curDiv.append($("<li>").text(`${titleCase(key)}: 1`));
         }
         else{
@@ -321,9 +321,9 @@ function populateSummaryCat(curDiv,summaryObj){
 //     alert("End date must be after start date");
 // }
 
-// var script = document.createElement('script');
-// script.type = 'text/javascript';
-// script.src = 'https://momentjs.com/downloads/moment.js';
-// document.head.appendChild(script);
+var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = 'https://momentjs.com/downloads/moment.js';
+document.head.appendChild(script);
 
-// updateClothing("seattle","2020-01-27","2020-01-30");
+updateClothing("seattle","2020-01-27","2020-01-30");
