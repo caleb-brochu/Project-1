@@ -270,7 +270,7 @@ function getSuggestions(weather){
     if ( precip.includes("light rain") ){
         s.rainCoat = "rain coat";
     }
-    else if ( precip.includes("rain") ){
+    else if ( precip.includes("rain") || precip.includes("showers") || precip.includes("thunderstorms")){
         s.umbrella = "umbrella";
     }
 
