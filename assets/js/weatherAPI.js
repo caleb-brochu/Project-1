@@ -60,6 +60,12 @@ let clothesStrToVar = {
 let needOnlyOne = new Set(["coat","gloves","boots","jacket","rain coat","umbrella","scarf","bounce house"]);
 
 function updateClothing(loc,initDate,finalDate){
+    clothesSummary = {};
+    tops = {};
+    bottoms = {};
+    accessories = {};
+    footwear = {};
+
     startDate = initDate;
     endDate = finalDate;
     getLatLong(loc)
