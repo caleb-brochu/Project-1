@@ -343,9 +343,4 @@ function populateSummaryCat(curDiv,summaryObj){
 // script.src = 'https://momentjs.com/downloads/moment.js';
 // document.head.appendChild(script);
 
-<<<<<<< HEAD
-updateClothing("seattle","2020-01-25","2020-01-29");
-
-=======
 // updateClothing("seattle","2020-01-27","2020-01-30");
->>>>>>> aba9b62e293b970df2bae7514aaa93f9a91a7ecb

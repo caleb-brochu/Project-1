@@ -4,6 +4,7 @@ $( document ).ready(function() {
     $("#searchBtn").click(() =>  {
         emptyItinerary();
         updateClothing(getDestination(), getStartDate(), getEndDate());
+        updatePlaceDuration();
 
     });
 });
@@ -99,8 +100,14 @@ function getEndDate() {
  *
  */
 function emptyItinerary() {
-    $("#day").empty();
+    $("#days").empty();
+    $("#tops").empty("<ul>");
+    $("#bottoms").empty("<ul>");
+    $("#accessories").empty("<ul>");
+    $("#footwear").empty("<ul>");
 }
+
+
 
 
         // Fetch latitude and longitude

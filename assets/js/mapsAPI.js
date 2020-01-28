@@ -7,7 +7,7 @@
  *
  * Notes: DONE, JUST NEED LAT AND LONG TO WORK
  */
-$("#map").css({height: "250px"});
+$("#map").css({height: '30%'});
 var map;
 function initMap(coordinates) {
 
@@ -23,12 +23,11 @@ function success(position) {
     var long;
     var coords;
 
-  
     lat = position.coords.latitude;
     long = position.coords.longitude;
 
+    coords = [lat ,long];
 
-    coords = [lat, long];
     console.log(coords);
     initMap(coords);
 }
