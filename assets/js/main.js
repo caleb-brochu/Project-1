@@ -10,21 +10,21 @@ $( document ).ready(function() {
     });
 });
     
-    // Do this stuff when enter button is pressed
-    $("#searchBtn").bind("enterKey", async function(e) {
-        emptyItinerary();
-        updateClothing(getDestination(), getStartDate(), getEndDate());
-        updatePlaceDuration();
-        let location = await getLatLong(getDestination());
-        initMap(location);
-    });
-    $("#searchBtn").keyup(function(e) {
-        if(e.keyCode == 13) {
-            $(this).trigger("enterKey");
-        }
-    });
+// Do this stuff when enter button is pressed
+$("#searchBtn").bind("enterKey", async function(e) {
+    emptyItinerary();
+    updateClothing(getDestination(), getStartDate(), getEndDate());
+    updatePlaceDuration();
+    let location = await getLatLong(getDestination());
+    initMap(location);
+});
+$("#searchBtn").keyup(function(e) {
+    if(e.keyCode == 13) {
+        $(this).trigger("enterKey");
+    }
+});
 
-// });
+
 
 /**
  * Function description
@@ -85,10 +85,14 @@ function getEndDate() {
  *
  */
 function emptyItinerary() {
+    $("#dayContainer").empty();
     $("#map").empty();
-    $("#test").empty();
     $("#tops").empty("<ul>");
     $("#bottoms").empty("<ul>");
     $("#accessories").empty("<ul>");
     $("#footwear").empty("<ul>");
 }
+
+// function createDiv() {
+//     $("#dayContainer").empty();
+// }

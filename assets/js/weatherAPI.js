@@ -181,7 +181,7 @@ function createWeatherObject(weatherResponse){
 function generateDailyHtml(weatherArray) {
     // $("#days").empty();
     for (i = 0; i < weatherArray.length; i++){
-        let weatherDiv = $("<div>").addClass("column has-background-grey-lighter margin rounded black-border").attr('id', 'test');
+        let weatherDiv = $("<div>").addClass("column has-background-grey-lighter margin rounded black-border");
         // weatherDiv.text("Weather");
         let temp = $("<div>").text(`${weatherArray[i].temp}°F`);
         weatherDiv.append(temp);
@@ -203,7 +203,7 @@ function generateDailyHtml(weatherArray) {
         let dateDiv = $("<div>").addClass("bottom-border-thin column date-header");
         dateDiv.text(weatherArray[i].date);
 
-        let colDiv = $("<div>").addClass("column has-text-centered").attr('id', 'test');
+        let colDiv = $("<div>").addClass("column has-text-centered");
         colDiv.append(dateDiv);
         colDiv.append(columnsDiv);
 
