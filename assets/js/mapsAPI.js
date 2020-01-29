@@ -3,8 +3,8 @@ $("#map").css({
     style: 'border-radius: 6px'
 });
 var map;
-var service;
-var infowindow;
+var service = new google.maps.places.PlacesService(map);
+var infowindow = new google.maps.InfoWindow();
 let stores = {
     "North Face" : "cold",
     "Target" : "generic",
@@ -35,20 +35,11 @@ async function remakeMap(place) {
     var coords = await getLatLong(place);
     var destination = new google.maps.LatLng(coords[0], coords[1]);
 
-    infowindow = new google.maps.InfoWindow();
-
-    // map = new google.maps.Map(document.getElementById('map'), {
-    //     center: destination,
-    //     zoom: 13
-    // });
-
     var request = {
         query: 'Target' /** Get store names from list of generic clothing stores, get temperature data and suggest a store */,
         fields: ['name', 'geometry'],
         // locationBias: 5000 - Need to fix locationbias, not sure of the syntax
     };
-
-    var service = new google.maps.places.PlacesService(map);
 
     service.findPlaceFromQuery(request, (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -95,7 +86,7 @@ function getStorePosition(store) {
 
 }
 
-function createMarker(coords) {
+function createMarker(store) {
   var marker;
   var mapOptions;
 
@@ -106,14 +97,15 @@ function createMarker(coords) {
   map = new google.maps.Map(document.getElementById('map'), mapOptions)
   
   marker = new google.maps.Marker({
+      map: map,
       // Get position of store and send it here
-      position: [coords[0], coords[1]],
-      title: 'Hello World'
+      position: store.geometry.location,
   });
 
-  // marker.setMap(map)
-
-    
+  google.maps.event.addListener(marker, 'click', () => {
+      infowindow.setContent(store.name);
+      infowindow.open(map, this);
+  })    
 }
 
 /**
