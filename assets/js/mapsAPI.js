@@ -83,9 +83,16 @@ function getStoreSuggestions(avgTemp, storeList) {
 
 // Gets store position and returns lat and long to be passed on to createMarker() 
 function getStorePosition(store) {
-
+    service.findPlaceFromQuery(request, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+                createMarker(results[i]);
+            }
+        }
+    })
 }
 
+// Creates marker on store location passed in by getStorePosition
 function createMarker(store) {
   var marker;
   var mapOptions;
