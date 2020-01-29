@@ -1,4 +1,17 @@
 $( document ).ready(function() {
+    var map;
+    var service = new google.maps.places.PlacesService(map);
+    var infowindow = new google.maps.InfoWindow();
+    let stores = {
+        "North Face" : "cold",
+        "Target" : "generic",
+        "Gucci" : "hot",
+        "Walmart" : "generic",
+        "Dick's Sporting Goods" : "cold",
+        "Uniqlo" : "generic",
+        "REI" : "coldaf",
+        "Patagonia": "coldaf"
+    }
     setLimitsForCalendars();
     getUserLocation();
 
@@ -11,7 +24,10 @@ $( document ).ready(function() {
         getStoreSuggestions();
         // let location = await getLatLong(getDestination());
         // initMap(location);
-        remakeMap(place);
+        remakeMap(place, service, map);
+        let avgTemp = getWeatherData();
+        getStoreSuggestions(avgTemp, stores);
+
     });
 
     // Do this stuff when enter button is pressed
@@ -31,6 +47,22 @@ $( document ).ready(function() {
     });
 });
 
+/**
+ * Function description
+ * Calls the necessary functions to get the average temperature during the trip
+ *
+ * @param - Takes no params
+ * @return - Returns the average temperature
+ *
+ */
+async function getWeatherData() {
+    let temp1 = await getLatLong(getDestination());
+    let temp2 = await fetchWeather(temp1);
+    let temp3 = await fetchForecast(temp2);
+    let avgTemp = getAverageTempOfTrip(temp3);
+
+    return avgTemp;
+}
 
 
 

@@ -175,6 +175,25 @@ function createWeatherObject(weatherResponse){
     return weatherArray;
 }
 
+/**
+ * Function description
+ * Calculates the average temperature during the duration of the trip based on forecast data
+ *
+ * @param - Takes weatherArray as an array of temperatures
+ * @return - Returns the average temperature
+ *
+ */
+function getAverageTempOfTrip(weatherObj) {
+    let sum = 0;
+    let avg = 0;
+    for(let i = 0; i < weatherObj.length; i++) {
+        sum += weatherObj[i].temp;
+    }
+    
+    avg = sum / weatherArray.length;
+    return avg;
+}
+
 
 
 // generate daily html from weather data
