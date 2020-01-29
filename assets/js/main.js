@@ -7,19 +7,16 @@ $( document ).ready(function() {
         updatePlaceDuration();
         let location = await getLatLong(getDestination());
         initMap(location);
-
     });
 });
     
     // Do this stuff when enter button is pressed
-    $("#searchBtn").bind("enterKey", function(e) {
+    $("#searchBtn").bind("enterKey", async function(e) {
         emptyItinerary();
         updateClothing(getDestination(), getStartDate(), getEndDate());
         updatePlaceDuration();
         let location = await getLatLong(getDestination());
         initMap(location);
-
-
     });
     $("#searchBtn").keyup(function(e) {
         if(e.keyCode == 13) {
