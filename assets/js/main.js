@@ -2,16 +2,7 @@ $( document ).ready(function() {
     var map;
     var service = new google.maps.places.PlacesService(map);
     var infowindow = new google.maps.InfoWindow();
-    let stores = {
-        "North Face" : "cold",
-        "Target" : "generic",
-        "Gucci" : "hot",
-        "Walmart" : "generic",
-        "Dick's Sporting Goods" : "cold",
-        "Uniqlo" : "generic",
-        "REI" : "coldaf",
-        "Patagonia": "coldaf"
-    }
+
     setLimitsForCalendars();
     getUserLocation();
 
@@ -21,12 +12,10 @@ $( document ).ready(function() {
         emptyItinerary();
         updateClothing(getDestination(), getStartDate(), getEndDate());
         updatePlaceDuration();
-        getStoreSuggestions();
-        // let location = await getLatLong(getDestination());
-        // initMap(location);
         remakeMap(place, service, map);
-        let avgTemp = getWeatherData();
-        getStoreSuggestions(avgTemp, stores);
+        let avgTemp = await getWeatherData();
+        console.log(avgTemp);
+        let suggests = await getStoreSuggestions(avgTemp);
 
     });
 
@@ -56,10 +45,10 @@ $( document ).ready(function() {
  *
  */
 async function getWeatherData() {
-    let temp1 = await getLatLong(getDestination());
-    let temp2 = await fetchWeather(temp1);
-    let temp3 = await fetchForecast(temp2);
-    let avgTemp = getAverageTempOfTrip(temp3);
+    let tempCoords = await getLatLong(getDestination());
+    let tempLink = await fetchWeather(tempCoords);
+    let tempWeatherObject = await fetchForecast(tempLink);
+    let avgTemp = getAverageTempOfTrip(tempWeatherObject);
 
     return avgTemp;
 }

@@ -51,32 +51,76 @@ async function remakeMap(place, temp, map) {
 }
 
 // Get store suggestions based on the weather
-function getStoreSuggestions(avgTemp, storeList) {
-    let pushList = [];
+function getStoreSuggestions(tempAvg) {
 
+
+    let coldafStores = {
+        "North Face" : "coldaf",
+        "REI" : "coldaf",
+        "Patagonia": "coldaf"
+    };
+
+    let coldStores = {
+
+        "Dick's Sporting Goods" : "cold"
+    };
+    let genericStores = {
+        "Target" : "generic",
+        "Walmart" : "generic",
+        "Uniqlo" : "generic",
+    };
+    let hotStores = {
+        "Gucci" : "hot"
+    };
     let coldaf = 20;
     let cold = 32;
     let generic = 65;
     let hot = 75;
-    if (avgTemp <= coldaf) {
-        for (store in storeList) {
-            (this.values() === "coldaf") ? pushList.push(this) : {};
-        }
-    } else if (avgTemp < cold && avgTemp > coldaf) {
-        for (store in storeList) {
-            (this.values() === "cold") ? pushList.push(this) : {};
-        }
-    } else if (avgTemp <= generic && avgTemp >= cold) {
-        for (store in storeList) {
-            (this.values() === "generic") ? pushList.push(this) : {};
-        }    
-    } else {
-        for (store in storeList) {
-            (this.values() === "hot") ? pushList.push(this) : {};
-        }
-    } 
 
-    return pushList;
+
+    let coldafPushList = [];  
+    let coldPushList = [];
+    let genericPushList = [];
+    let hotPushList = [];
+
+        // for (let value of Object.values(storeList)) {
+        //     for (store in storeList) {
+        //         // If temp lower than coldaf and value == coldaf
+        //         (tempAvg <= coldaf && value === "coldaf") ? coldafPushList.push(store) : {} ;
+        //         (tempAvg <= cold && tempAvg >= coldaf && value === "cold") ? coldPushList.push(store) : {};
+        //         (tempAvg <= generic && tempAvg >= cold  && value === "generic") ? genericPushList.push(store) : {};
+        //         (tempAvg <= hot && tempAvg >= generic && value === "hot") ? hotPushList.push(store) : {};
+        //     }
+        // }
+
+        // for (store in storeList) {
+            // for (let value of Object.values(storeList)) {
+            //     (tempAvg < coldaf && value === "coldaf") ? coldafPushList.push(Object.keys(storeList)) : {} ;
+            //     (tempAvg < cold && tempAvg > coldaf && value === "cold") ? coldPushList.push(Object.keys(storeList)) : {};
+            //     (tempAvg < generic && tempAvg > cold  && value === "generic") ? genericPushList.push(Object.keys(storeList)) : {};
+            //     (tempAvg < hot && tempAvg > generic && value === "hot") ? hotPushList.push(Object.keys(storeList)) : {};
+            // }
+        // }
+
+        if (tempAvg < coldaf) {
+            coldafPushList.push(Object.keys(coldafStores));
+        } else if (tempAvg > coldaf && tempAvg < cold) {
+            coldPushList.push(Object.keys(coldStores));
+        } else if (tempAvg > cold && tempAvg < generic) {
+            genericPushList.push(Object.keys(genericStores));
+        } else {
+            hotPushList.push(Object.keys(hotStores));
+        }
+    
+        if (coldafPushList.length > 0) {
+            return coldafPushList;
+        } else if (coldPushList.length > 0) {
+            return coldPushList;
+        } else if (genericPushList.length > 0) {
+            return genericPushList;
+        } else {
+            return hotPushList;
+        }
 }
 
 // Gets store position and returns lat and long to be passed on to createMarker() 
