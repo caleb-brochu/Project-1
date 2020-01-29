@@ -5,6 +5,16 @@ $("#map").css({
 var map;
 var service;
 var infowindow;
+let stores = {
+    "North Face" : "cold",
+    "Target" : "generic",
+    "Gucci" : "hot",
+    "Walmart" : "generic",
+    "Dick's Sporting Goods" : "cold",
+    "Uniqlo" : "generic",
+    "REI" : "coldaf",
+    "Patagonia": "coldaf"
+}
 
 /**
  * Function description
@@ -27,13 +37,13 @@ async function remakeMap(place) {
 
     infowindow = new google.maps.InfoWindow();
 
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: destination,
-        zoom: 15
-    });
+    // map = new google.maps.Map(document.getElementById('map'), {
+    //     center: destination,
+    //     zoom: 13
+    // });
 
     var request = {
-        query: getDestination(),
+        query: 'Target' /** Get store names from list of generic clothing stores, get temperature data and suggest a store */,
         fields: ['name', 'geometry'],
         // locationBias: 5000 - Need to fix locationbias, not sure of the syntax
     };
@@ -43,21 +53,65 @@ async function remakeMap(place) {
     service.findPlaceFromQuery(request, (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (var i = 0; i < results.length; i++) {
-                createMarker(coords[0], coords[1]);
+                // Create marker on store location
+                createMarker(coords); 
             }
         }
         map.setCenter(destination);
     });
 }
 
+// Get store suggestions based on the weather
+function getStoreSuggestions(avgTemp, storeList) {
+    let pushList = [];
+
+    let coldaf = 20;
+    let cold = 32;
+    let generic = 65;
+    let hot = 75;
+    if (avgTemp <= coldaf) {
+        for (store of storeList) {
+            (this.values() === "coldaf") ? pushList.push(this) : {};
+        }
+    } else if (avgTemp < cold && avgTemp > coldaf) {
+        for (store of storeList) {
+            (this.values() === "cold") ? pushList.push(this) : {};
+        }
+    } else if (avgTemp <= generic && avgTemp >= cold) {
+        for (store of storeList) {
+            (this.values() === "generic") ? pushList.push(this) : {};
+        }    
+    } else {
+        for (store of storeList) {
+            (this.values() === "hot") ? pushList.push(this) : {};
+        }
+    } 
+
+    return pushList;
+}
+
+// Gets store position and returns lat and long to be passed on to createMarker() 
+function getStorePosition(store) {
+
+}
+
 function createMarker(coords) {
-    var marker;
-    
-    marker = new google.maps.Marker({
-        position: [coords[0], coords[1]],
-        map: map,
-        title: 'Hello World'
-    });
+  var marker;
+  var mapOptions;
+
+  mapOptions = {
+      zoom: 14
+  }
+
+  map = new google.maps.Map(document.getElementById('map'), mapOptions)
+  
+  marker = new google.maps.Marker({
+      // Get position of store and send it here
+      position: [coords[0], coords[1]],
+      title: 'Hello World'
+  });
+
+  // marker.setMap(map)
 
     
 }
@@ -108,18 +162,6 @@ function getUserLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, reject);
     }
-}
-
-function makeSearchBar() {
-    var defaultBounds = new google.maps.LatLngBounds(
-        new google.maps.LatLng(47.630026, -122.051930),
-        new google.maps.LatLng(47.35541, -122.19241));
-
-    var input = $("#searchField");
-
-    var searchBox = new google.maps.places.SearchBox(input, {
-        bounds: defaultBounds
-    });
 }
 
 
