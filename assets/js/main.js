@@ -14,8 +14,8 @@ $( document ).ready(function() {
         updatePlaceDuration();
         remakeMap(place, service, map);
         let avgTemp = await getWeatherData();
-        console.log(avgTemp);
-        let suggests = await getStoreSuggestions(avgTemp);
+        // getStoreSuggestions(avgTemp);
+        getStorePosition(getStoreSuggestions(avgTemp, new google.maps.places.PlacesService(map)));
 
     });
 
