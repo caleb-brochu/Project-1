@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+    setLimitsForCalendars();
     getUserLocation();
     // initMap(getLatLong(getUserLocation()));
     $("#searchBtn").click(async () =>  {
@@ -26,6 +27,20 @@ $( document ).ready(function() {
     });
 
 // });
+
+// Set the limits for the calendars
+function setLimitsForCalendars(){
+    $("#start-date").attr("min",moment().format("YYYY-MM-DD"));
+    $("#end-date").attr("min",moment().format("YYYY-MM-DD"));
+
+    $("#start-date").attr("max",moment().add(14,'days').format("YYYY-MM-DD"));
+    $("#end-date").attr("max",moment().add(14,'days').format("YYYY-MM-DD"));
+
+}
+
+$("#end-date").click(function setEndDateLimit(){
+    $("#end-date").attr("min",moment($("#start-date").val(),"YYYY-MM-DD").format("YYYY-MM-DD"))
+});
 
 /**
  * Function description
