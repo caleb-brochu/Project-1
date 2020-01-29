@@ -1,32 +1,18 @@
 $( document ).ready(function() {
     setLimitsForCalendars();
     getUserLocation();
-    // initMap(getLatLong(getUserLocation()));
+    makeSearchBar();
+
     $("#searchBtn").click(async () =>  {
         emptyItinerary();
         updateClothing(getDestination(), getStartDate(), getEndDate());
         updatePlaceDuration();
-        let location = await getLatLong(getDestination());
-        initMap(location);
+        // let location = await getLatLong(getDestination());
+        // initMap(location);
+        let place = getDestination();
+        remakeMap(place);
     });
-});
-    
-<<<<<<< HEAD
-// Do this stuff when enter button is pressed
-$("#searchBtn").bind("enterKey", async function(e) {
-    emptyItinerary();
-    updateClothing(getDestination(), getStartDate(), getEndDate());
-    updatePlaceDuration();
-    let location = await getLatLong(getDestination());
-    initMap(location);
-});
-$("#searchBtn").keyup(function(e) {
-    if(e.keyCode == 13) {
-        $(this).trigger("enterKey");
-    }
-});
 
-=======
     // Do this stuff when enter button is pressed
     $("#destination").bind("enterKey", async function(e) {
         e.preventDefault();
@@ -36,12 +22,15 @@ $("#searchBtn").keyup(function(e) {
         let location = await getLatLong(getDestination());
         initMap(location);
     });
-    $("#searchBtn").keyup(function(e) {
+
+    $("#destination").keyup(function(e) {
         if(e.keyCode == 13) {
             $(this).trigger("enterKey");
         }
     });
->>>>>>> 5af892cb8a05647dcde7598808aeca3a40d35568
+});
+
+
 
 
 // Set the limits for the calendars

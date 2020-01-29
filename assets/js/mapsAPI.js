@@ -1,8 +1,10 @@
 $("#map").css({
-    height: '350px',
+    height: '450px',
     style: 'border-radius: 6px'
 });
 var map;
+var service;
+var infowindow;
 
 /**
  * Function description
@@ -13,11 +15,51 @@ var map;
  *
  */
 function initMap(coordinates) {
-
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: coordinates[0], lng: coordinates[1]},
         zoom: 11
     });
+}
+
+async function remakeMap(place) {
+    var coords = await getLatLong(place);
+    var destination = new google.maps.LatLng(coords[0], coords[1]);
+
+    infowindow = new google.maps.InfoWindow();
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: destination,
+        zoom: 15
+    });
+
+    var request = {
+        query: getDestination(),
+        fields: ['name', 'geometry'],
+        // locationBias: 5000 - Need to fix locationbias, not sure of the syntax
+    };
+
+    var service = new google.maps.places.PlacesService(map);
+
+    service.findPlaceFromQuery(request, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+                createMarker(coords[0], coords[1]);
+            }
+        }
+        map.setCenter(destination);
+    });
+}
+
+function createMarker(coords) {
+    var marker;
+    
+    marker = new google.maps.Marker({
+        position: [coords[0], coords[1]],
+        map: map,
+        title: 'Hello World'
+    });
+
+    
 }
 
 /**
@@ -66,6 +108,18 @@ function getUserLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, reject);
     }
+}
+
+function makeSearchBar() {
+    var defaultBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(47.630026, -122.051930),
+        new google.maps.LatLng(47.35541, -122.19241));
+
+    var input = $("#searchField");
+
+    var searchBox = new google.maps.places.SearchBox(input, {
+        bounds: defaultBounds
+    });
 }
 
 
