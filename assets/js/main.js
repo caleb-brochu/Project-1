@@ -11,7 +11,8 @@ $( document ).ready(function() {
 });
     
     // Do this stuff when enter button is pressed
-    $("#searchBtn").bind("enterKey", async function(e) {
+    $("#destination").bind("enterKey", async function(e) {
+        e.preventDefault();
         emptyItinerary();
         updateClothing(getDestination(), getStartDate(), getEndDate());
         updatePlaceDuration();
@@ -37,7 +38,15 @@ $( document ).ready(function() {
 function updatePlaceDuration(){
     let numDays = moment(endDate,"YYYY-MM-DD").diff(moment(startDate,"YYYY-MM-DD"),"d");
     $("#duration").text(numDays + " days");
-    $("#s-destination").text($("#destination").val());
+    $("#s-destination").text(titleCase($("#destination").val()));
+}
+
+function titleCase(string) {
+    var sentence = string.toLowerCase().split(" ");
+    for(var i = 0; i< sentence.length; i++){
+       sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+    }
+    return sentence.join(" ");
 }
 
 /**
