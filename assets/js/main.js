@@ -5,6 +5,7 @@ $( document ).ready(function() {
         emptyItinerary();
         updateClothing(getDestination(), getStartDate(), getEndDate());
         updatePlaceDuration();
+        initMap(getLatLong(getDestination()));
 
     });
 });
@@ -46,7 +47,7 @@ function updatePlaceDuration(){
  *
  */
 function getDestination() {
-    return $("#destination").val();
+    return $("#destination").val().toUpperCase();
 }
 
 /**
@@ -100,7 +101,7 @@ function getEndDate() {
  *
  */
 function emptyItinerary() {
-    $("#days").empty();
+    $("#test").empty();
     $("#tops").empty("<ul>");
     $("#bottoms").empty("<ul>");
     $("#accessories").empty("<ul>");
