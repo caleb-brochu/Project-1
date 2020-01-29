@@ -149,9 +149,9 @@ function createWeatherObject(weatherResponse){
     weatherObject = Object();
     //console.log(weatherResponse);
     let weatherPeriods = weatherResponse.properties.periods;
-    let curTime = moment();
-    minDays = moment(startDate,"YYYY-MM-DD").diff(curTime,"d");
-    maxDays = moment(endDate,"YYYY-MM-DD").diff(curTime,"d")+1;
+    let curTime = moment().startOf("day");
+    minDays = moment(startDate,"YYYY-MM-DD").startOf("day").diff(curTime,"d");
+    maxDays = moment(endDate,"YYYY-MM-DD").startOf("day").diff(curTime,"d")+1;
 
     // weather.gov has max 14 day forecast
     if (maxDays > 13){
@@ -159,7 +159,7 @@ function createWeatherObject(weatherResponse){
     }
 
     // loop through weather data for each day and generate object
-    for (i = minDays+1; i <= maxDays+1; i++){
+    for (i = minDays; i <= maxDays; i++){
         let w = {};
         w["temp"] = weatherPeriods[i].temperature;
         w["precip"] = weatherPeriods[i].shortForecast;

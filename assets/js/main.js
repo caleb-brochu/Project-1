@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+    setLimitsForCalendars();
     getUserLocation();
     // initMap(getLatLong(getUserLocation()));
     $("#searchBtn").click(async () =>  {
@@ -10,6 +11,7 @@ $( document ).ready(function() {
     });
 });
     
+<<<<<<< HEAD
 // Do this stuff when enter button is pressed
 $("#searchBtn").bind("enterKey", async function(e) {
     emptyItinerary();
@@ -24,7 +26,37 @@ $("#searchBtn").keyup(function(e) {
     }
 });
 
+=======
+    // Do this stuff when enter button is pressed
+    $("#destination").bind("enterKey", async function(e) {
+        e.preventDefault();
+        emptyItinerary();
+        updateClothing(getDestination(), getStartDate(), getEndDate());
+        updatePlaceDuration();
+        let location = await getLatLong(getDestination());
+        initMap(location);
+    });
+    $("#searchBtn").keyup(function(e) {
+        if(e.keyCode == 13) {
+            $(this).trigger("enterKey");
+        }
+    });
+>>>>>>> 5af892cb8a05647dcde7598808aeca3a40d35568
 
+
+// Set the limits for the calendars
+function setLimitsForCalendars(){
+    $("#start-date").attr("min",moment().format("YYYY-MM-DD"));
+    $("#end-date").attr("min",moment().format("YYYY-MM-DD"));
+
+    $("#start-date").attr("max",moment().add(14,'days').format("YYYY-MM-DD"));
+    $("#end-date").attr("max",moment().add(14,'days').format("YYYY-MM-DD"));
+
+}
+
+$("#end-date").click(function setEndDateLimit(){
+    $("#end-date").attr("min",moment($("#start-date").val(),"YYYY-MM-DD").format("YYYY-MM-DD"))
+});
 
 /**
  * Function description
@@ -37,7 +69,15 @@ $("#searchBtn").keyup(function(e) {
 function updatePlaceDuration(){
     let numDays = moment(endDate,"YYYY-MM-DD").diff(moment(startDate,"YYYY-MM-DD"),"d");
     $("#duration").text(numDays + " days");
-    $("#s-destination").text($("#destination").val());
+    $("#s-destination").text(titleCase($("#destination").val()));
+}
+
+function titleCase(string) {
+    var sentence = string.toLowerCase().split(" ");
+    for(var i = 0; i< sentence.length; i++){
+       sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+    }
+    return sentence.join(" ");
 }
 
 /**
