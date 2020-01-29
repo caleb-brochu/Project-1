@@ -1,15 +1,16 @@
 $( document ).ready(function() {
     setLimitsForCalendars();
     getUserLocation();
-    makeSearchBar();
 
     $("#searchBtn").click(async () =>  {
+        let place = getDestination();
+
         emptyItinerary();
         updateClothing(getDestination(), getStartDate(), getEndDate());
         updatePlaceDuration();
+        getStoreSuggestions();
         // let location = await getLatLong(getDestination());
         // initMap(location);
-        let place = getDestination();
         remakeMap(place);
     });
 
@@ -122,6 +123,3 @@ function emptyItinerary() {
     $("#footwear").empty("<ul>");
 }
 
-// function createDiv() {
-//     $("#dayContainer").empty();
-// }
