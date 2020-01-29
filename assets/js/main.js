@@ -1,26 +1,31 @@
 $( document ).ready(function() {
     getUserLocation();
     // initMap(getLatLong(getUserLocation()));
-    $("#searchBtn").click(() =>  {
+    $("#searchBtn").click(async () =>  {
         emptyItinerary();
         updateClothing(getDestination(), getStartDate(), getEndDate());
         updatePlaceDuration();
-        initMap(getLatLong(getDestination()));
+        let location = await getLatLong(getDestination());
+        initMap(location);
 
     });
 });
     
-    // Keep this stuff for enter presses
-    // // Do this stuff when enter button is pressed
-    // $("#searchButton").bind("enterKey", function(e) {
-    //     console.log("Enter has been pressed")
+    // Do this stuff when enter button is pressed
+    $("#searchBtn").bind("enterKey", function(e) {
+        emptyItinerary();
+        updateClothing(getDestination(), getStartDate(), getEndDate());
+        updatePlaceDuration();
+        let location = await getLatLong(getDestination());
+        initMap(location);
 
-    // });
-    // $("#searchButton").keyup(function(e) {
-    //     if(e.keyCode == 13) {
-    //         $(this).trigger("enterKey");
-    //     }
-    // });
+
+    });
+    $("#searchBtn").keyup(function(e) {
+        if(e.keyCode == 13) {
+            $(this).trigger("enterKey");
+        }
+    });
 
 // });
 
@@ -74,24 +79,6 @@ function getEndDate() {
     return moment($("#end-date").val());
 }
 
-
-
-/**
- * Function description
- * Dynamically appends (insert div) div to include an itinerary for the range of dates
- * Suggests types of clothing based on weather, use switch case
- *
- * @param - 
- * @return - Does not return anything
- *
- */
-// function itinerary(lengthOfStay) {
-//     for (let i = 0; i < lengthOfStay; i++) {
-//         $("#day").append("<div class = 'row'>Testing</div>")
-        
-//     }
-// }
-
 /**
  * Function description
  * Empties the (previously) generated itinerary before a new search
@@ -101,28 +88,10 @@ function getEndDate() {
  *
  */
 function emptyItinerary() {
+    $("#map").empty();
     $("#test").empty();
     $("#tops").empty("<ul>");
     $("#bottoms").empty("<ul>");
     $("#accessories").empty("<ul>");
     $("#footwear").empty("<ul>");
 }
-
-
-
-
-        // Fetch latitude and longitude
-        // let locationFetch = Promise.resolve(getLatLong(getDestination()));
-        // let locationResolve = Promise.resolve(locationFetch);
-        // locationResolve.then((latLongArr) => {
-        //     // fetch forecast link
-        //     // console.log(fetchWeather(latLongArr));
-        //     let weatherFetch = Promise.resolve(fetchWeather(latLongArr));
-        //     let weatherResolve = Promise.resolve(weatherFetch);
-        //     weatherResolve.then((weatherFetch) => {
-        //         // fetch forecast
-        //         let forecastFetch = Promise.resolve(fetchForecast(weatherFetch));
-        //         let forecastResolve = Promise.resolve(forecastFetch);
-        //         console.log(forecastResolv     e);
-            // });
-    
