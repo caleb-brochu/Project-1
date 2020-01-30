@@ -10,17 +10,27 @@ mats if desired.
 
 APIs:
 
-Google Maps https://developers.google.com/maps/solutions/store-locator/clothing-store-locator
+Google Maps
 
-Weather:    https://openweathermap.org
+https://developers.google.com/maps/solutions/store-locator/clothing-store-locator
 
-            https://www.weather.gov/documentation/services-web-api
+Weather
 
-CSS library: Bulma https://bulma.io/ 
+https://openweathermap.org
 
-Presentation: https://1drv.ms/p/s!AswjJSGEGu6tvmrqs57EnPRUttUx?e=VJqW5O
+https://www.weather.gov/documentation/services-web-api
 
-Deployed site: https://caleb-brochu.github.io/Project-1/
+CSS library: Bulma
+
+https://bulma.io/ 
+
+Presentation:
+
+https://1drv.ms/p/s!AswjJSGEGu6tvmrqs57EnPRUttUx?e=VJqW5O
+
+Deployed site:
+
+https://caleb-brochu.github.io/Project-1/
 
 Byron and Caleb Front End Development
 Austin and Josh Back End Development
