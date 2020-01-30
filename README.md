@@ -21,6 +21,7 @@ https://openweathermap.org
 https://www.weather.gov/documentation/services-web-api
 
 
+
 ## CSS library - Bulma
 
 https://bulma.io/ 
@@ -34,6 +35,7 @@ https://1drv.ms/p/s!AswjJSGEGu6tvmrqs57EnPRUttUx?e=VJqW5O
 https://caleb-brochu.github.io/Project-1/
 
 Byron and Caleb Front End Development
+
 Austin and Josh Back End Development
 
 ![Page preview](/assets/img/wireframe.jpg?raw=true "Page Preview")
