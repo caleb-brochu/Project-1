@@ -15,7 +15,7 @@ $(document).ready(() => {
  */
 function initMap(coordinates) {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: coordinates[0], lng: coordinates[1]},
+        center: {lat: 47.609263, lng: -122.341965},
         zoom: 11
     });
 }
