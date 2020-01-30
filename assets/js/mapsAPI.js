@@ -163,9 +163,7 @@ function createMarker(coords, map) {
   
   marker = new google.maps.Marker({
       map: map,
-      zoom: 14,
-      position: [coords[0], coords[1]]
-
+      position: {lat:coords[0], lng:coords[1]}
   });
 
   google.maps.event.addListener(marker, 'click', () => {
