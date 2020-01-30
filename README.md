@@ -11,9 +11,14 @@ mats if desired.
 Api: 
 Google Maps https://developers.google.com/maps/solutions/store-locator/clothing-store-locator
 
-Dark Sky https://darksky.net/dev/docs
+Weather API:    https://openweathermap.org
+                https://www.weather.gov/documentation/services-web-api
 
 CSS library: Bulma https://bulma.io/ 
+
+Presentation: https://1drv.ms/p/s!AswjJSGEGu6tvmrqs57EnPRUttUx?e=VJqW5O
+
+Deployed site: https://caleb-brochu.github.io/Project-1/
 
 Byron and Caleb Front End Development
 Austin and Josh Back End Development
