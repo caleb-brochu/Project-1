@@ -8,27 +8,28 @@ Given that I am traveling soon. I want to submit my travel destination which the
 destination as well as suggestions in what clothes to pack. Furthermore, it will show location of local clothing stores and laundry
 mats if desired.
 
-APIs:
+## ---APIs---
 
-Google Maps
+### Google Maps
 
 https://developers.google.com/maps/solutions/store-locator/clothing-store-locator
 
-Weather
+### Weather
 
 https://openweathermap.org
 
 https://www.weather.gov/documentation/services-web-api
 
-CSS library: Bulma
+
+## CSS library - Bulma
 
 https://bulma.io/ 
 
-Presentation:
+## Presentation:
 
 https://1drv.ms/p/s!AswjJSGEGu6tvmrqs57EnPRUttUx?e=VJqW5O
 
-Deployed site:
+## Deployed site
 
 https://caleb-brochu.github.io/Project-1/
 
