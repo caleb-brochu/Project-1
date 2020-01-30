@@ -3,10 +3,6 @@ $(document).ready(() => {
         height: '450px',
         style: 'border-radius: 6px'
     });
-
-
-
-
 })
 
 /**
@@ -25,9 +21,9 @@ function initMap(coordinates) {
 }
 
 async function remakeMap(place, temp, map) {
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 14
-    });
+    // map = new google.maps.Map(document.getElementById('map'), {
+    //     zoom: 14
+    // });
     temp = new google.maps.places.PlacesService(map);
     var coords = await getLatLong(place);
     var destination = new google.maps.LatLng(coords[0], coords[1]);
@@ -38,24 +34,22 @@ async function remakeMap(place, temp, map) {
         // locationBias: 5000 - Need to fix locationbias, not sure of the syntax
     };
 
-    await temp.findPlaceFromQuery(request, async (results, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-            await results;
+    // await temp.findPlaceFromQuery(request, async (results, status) => {
+    //     if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //         await results;
 
-            for (var i = 0; i < results.length; i++) {
-                // Create marker on store location
-                // console.log(coords);
-                // createMarker(coords); 
-            }
-        }
-        map.setCenter(destination);
-    });
+    //         for (var i = 0; i < results.length; i++) {
+    //             // Create marker on store location
+    //             // console.log(coords);
+    //             // createMarker(coords); 
+    //         }
+    //     }
+    //     map.setCenter(destination);
+    // });
 }
 
 // Get store suggestions based on the weather
 function getStoreSuggestions(tempAvg) {
-
-
     let coldafStores = {
         "North Face" : "coldaf",
         "REI" : "coldaf",
@@ -134,6 +128,7 @@ function getStorePosition(storeArr, callback) {
     var service = new google.maps.places.PlacesService(map);
     var request;
     let coordArr = [];
+    let final = [];
     for (let i = 0; i < storeArr.length; i++) {
         coordArr.push(storeArr[0][i]);
         request = {
@@ -145,29 +140,32 @@ function getStorePosition(storeArr, callback) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 console.log(results);
                 storeArr.pop(storeArr[0]);
-                // createMarker([results[0].geometry.viewport.Ya["g"], results[0].geometry.viewport.Ta["g"]]);
+                createMarker([results[0].geometry.viewport.Ya["g"], results[0].geometry.viewport.Ta["g"]], map);
                 
             }
         });
     };
 
+    return final;
+
 }
 
 // Creates marker on store location passed in by getStorePosition
-function createMarker(coords) {
+function createMarker(coords, map) {
   var marker;
   var mapOptions;
 
   mapOptions = {
       zoom: 14
-  }
+  };
 
-  map = new google.maps.Map(document.getElementById('map'), mapOptions)
+//   map = new google.maps.Map(document.getElementById('map'), mapOptions)
   
   marker = new google.maps.Marker({
-      map: map
-      // Get position of store and send it here
-    //   position: [coords[0], coords[1]],
+      map: map,
+      zoom: 14,
+      position: [coords[0], coords[1]]
+
   });
 
   google.maps.event.addListener(marker, 'click', () => {

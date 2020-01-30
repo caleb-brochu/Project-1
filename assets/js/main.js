@@ -1,5 +1,8 @@
 $( document ).ready(function() {
-    var map;
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 47.6062, lng: 122.3321},
+        zoom: 11
+    });
     var service = new google.maps.places.PlacesService(map);
     var infowindow = new google.maps.InfoWindow();
 
@@ -14,19 +17,23 @@ $( document ).ready(function() {
         updatePlaceDuration();
         remakeMap(place, service, map);
         let avgTemp = await getWeatherData();
-        // getStoreSuggestions(avgTemp);
         getStorePosition(getStoreSuggestions(avgTemp, new google.maps.places.PlacesService(map)));
+        // createMarker(getStorePosition());
 
     });
 
     // Do this stuff when enter button is pressed
     $("#destination").bind("enterKey", async function(e) {
-        e.preventDefault();
+        let place = getDestination();
+
         emptyItinerary();
         updateClothing(getDestination(), getStartDate(), getEndDate());
         updatePlaceDuration();
-        let location = await getLatLong(getDestination());
-        initMap(location);
+        remakeMap(place, service, map);
+        let avgTemp = await getWeatherData();
+        // getStoreSuggestions(avgTemp);
+        getStorePosition(getStoreSuggestions(avgTemp, new google.maps.places.PlacesService(map)));
+        createMarker(getStorePosition());
     });
 
     $("#destination").keyup(function(e) {
@@ -138,7 +145,7 @@ function getEndDate() {
  */
 function emptyItinerary() {
     $("#days").empty();
-    $("#map").empty();
+    // $("#map").empty();
     $("#tops").empty("<ul>");
     $("#bottoms").empty("<ul>");
     $("#accessories").empty("<ul>");
