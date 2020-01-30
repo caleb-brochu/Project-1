@@ -165,7 +165,7 @@ function createWeatherObject(weatherResponse){
         w["temp"] = weatherPeriods[i].temperature;
         w["precip"] = weatherPeriods[i].shortForecast;
         w["icon"] = weatherPeriods[i].icon;
-        w["date"] = moment().add(i-1,"days").format("MM/DD");
+        w["date"] = moment().add(i,"days").format("MM/DD");
         weatherArray.push(w);
     }
     // let daily = json.daily.data;
