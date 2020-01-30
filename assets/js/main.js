@@ -57,6 +57,7 @@ async function getWeatherData() {
 
 // Set the limits for the calendars
 function setLimitsForCalendars(){
+    $("#start-date").val(moment().format("YYYY-MM-DD"));
     $("#start-date").attr("min",moment().format("YYYY-MM-DD"));
     $("#end-date").attr("min",moment().format("YYYY-MM-DD"));
 
@@ -136,7 +137,7 @@ function getEndDate() {
  *
  */
 function emptyItinerary() {
-    $("#dayContainer").empty();
+    $("#days").empty();
     $("#map").empty();
     $("#tops").empty("<ul>");
     $("#bottoms").empty("<ul>");
