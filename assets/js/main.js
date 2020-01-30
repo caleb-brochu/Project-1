@@ -1,16 +1,24 @@
 $( document ).ready(function() {
+    var map;
+    var service = new google.maps.places.PlacesService(map);
+    var infowindow = new google.maps.InfoWindow();
+
     setLimitsForCalendars();
     getUserLocation();
-    // initMap(getLatLong(getUserLocation()));
+
     $("#searchBtn").click(async () =>  {
+        let place = getDestination();
+
         emptyItinerary();
         updateClothing(getDestination(), getStartDate(), getEndDate());
         updatePlaceDuration();
-        let location = await getLatLong(getDestination());
-        initMap(location);
+        remakeMap(place, service, map);
+        let avgTemp = await getWeatherData();
+        // getStoreSuggestions(avgTemp);
+        getStorePosition(getStoreSuggestions(avgTemp, new google.maps.places.PlacesService(map)));
+
     });
-});
-    
+
     // Do this stuff when enter button is pressed
     $("#destination").bind("enterKey", async function(e) {
         e.preventDefault();
@@ -20,13 +28,32 @@ $( document ).ready(function() {
         let location = await getLatLong(getDestination());
         initMap(location);
     });
-    $("#searchBtn").keyup(function(e) {
+
+    $("#destination").keyup(function(e) {
         if(e.keyCode == 13) {
             $(this).trigger("enterKey");
         }
     });
+});
 
-// });
+/**
+ * Function description
+ * Calls the necessary functions to get the average temperature during the trip
+ *
+ * @param - Takes no params
+ * @return - Returns the average temperature
+ *
+ */
+async function getWeatherData() {
+    let tempCoords = await getLatLong(getDestination());
+    let tempLink = await fetchWeather(tempCoords);
+    let tempWeatherObject = await fetchForecast(tempLink);
+    let avgTemp = getAverageTempOfTrip(tempWeatherObject);
+
+    return avgTemp;
+}
+
+
 
 // Set the limits for the calendars
 function setLimitsForCalendars(){
@@ -109,10 +136,11 @@ function getEndDate() {
  *
  */
 function emptyItinerary() {
+    $("#dayContainer").empty();
     $("#map").empty();
-    $("#test").empty();
     $("#tops").empty("<ul>");
     $("#bottoms").empty("<ul>");
     $("#accessories").empty("<ul>");
     $("#footwear").empty("<ul>");
 }
+

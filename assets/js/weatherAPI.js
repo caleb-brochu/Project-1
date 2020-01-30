@@ -175,13 +175,32 @@ function createWeatherObject(weatherResponse){
     return weatherArray;
 }
 
+/**
+ * Function description
+ * Calculates the average temperature during the duration of the trip based on forecast data
+ *
+ * @param - Takes weatherArray as an array of temperatures
+ * @return - Returns the average temperature
+ *
+ */
+function getAverageTempOfTrip(weatherObj) {
+    let sum = 0;
+    let avg = 0;
+    for(let i = 0; i < weatherObj.length; i++) {
+        sum += weatherObj[i].temp;
+    }
+    
+    avg = sum / weatherArray.length;
+    return avg;
+}
+
 
 
 // generate daily html from weather data
 function generateDailyHtml(weatherArray) {
     // $("#days").empty();
     for (i = 0; i < weatherArray.length; i++){
-        let weatherDiv = $("<div>").addClass("column has-background-grey-lighter margin rounded black-border").attr('id', 'test');
+        let weatherDiv = $("<div>").addClass("column has-background-grey-lighter margin rounded black-border");
         // weatherDiv.text("Weather");
         let temp = $("<div>").text(`${weatherArray[i].temp}°F`);
         weatherDiv.append(temp);
@@ -203,7 +222,7 @@ function generateDailyHtml(weatherArray) {
         let dateDiv = $("<div>").addClass("bottom-border-thin column date-header");
         dateDiv.text(weatherArray[i].date);
 
-        let colDiv = $("<div>").addClass("column has-text-centered").attr('id', 'test');
+        let colDiv = $("<div>").addClass("column has-text-centered");
         colDiv.append(dateDiv);
         colDiv.append(columnsDiv);
 
