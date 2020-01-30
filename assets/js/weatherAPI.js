@@ -203,11 +203,16 @@ function generateDailyHtml(weatherArray) {
         let weatherDiv = $("<div>").addClass("column has-background-grey-lighter margin rounded black-border");
         // weatherDiv.text("Weather");
         let temp = $("<div>").text(`${weatherArray[i].temp}°F`);
+        temp.addClass("has-text-centered temp");
         weatherDiv.append(temp);
         let precip = $("<div>").text(weatherArray[i].precip);
+        precip.addClass("has-text-centered precip");
         weatherDiv.append(precip);
-        let wIcon = $("<img>").attr("src",weatherArray[i].icon);
-
+        let iconDiv =$("<p>").addClass("weather-icon")
+        let wIcon = $("<img>").attr("src", weatherArray[i].icon);
+        wIcon.addClass(".has-image-centered icon");
+        iconDiv.append(wIcon);
+        weatherDiv.append(iconDiv);
 
         let suggestionDiv = $("<div>").addClass("column has-background-grey-lighter margin rounded black-border");
         //suggestionDiv.text("Suggestions");
