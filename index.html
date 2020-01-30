@@ -34,10 +34,12 @@
                         <div class="columns">
                             <div class="column">
                                 <form class = "field">
+                                <!-- Search bar for autocomplete -->
+                                <!-- <input type = "text" id = "searchField" class = "field"> -->
                                     <label class="label has-text-grey-lighter">Destination:</label>
-                                    <div class="control">
+                                    <!-- <input class="control"> -->
                                         <input class="input has-background-grey-lighter	is-medium" id = "destination" type="text" name="Destination" >
-                                    </div>
+                                    </input>
                                 </form>
                             </div>
                         </div>
@@ -142,7 +144,7 @@
     <!-- Day Div -->
     <div id = "days" class = "has-background-dark">
         <div class="columns" data-day="">
-            <div class="column has-text-centered">
+            <div class="column has-text-centered" id = "dayContainer">
 
                 <div class="bottom-border-thin column date-header">Date</div>
                 <div class="columns is-mobile has-text-left">
@@ -167,10 +169,10 @@
         <div id = "map"></div>
     </div>
 
-    <script src = assets/js/weatherApi.js></script>
+    <script src = assets/js/weatherAPI.js></script>
     <script src=assets/js/main.js></script>
     <script src = assets/js/mapsAPI.js></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4AAkTCm_w_C8rC3a3aMGNL9WErabkNTg&callback=initMap"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4AAkTCm_w_C8rC3a3aMGNL9WErabkNTg&libraries=places&callback=initMap"
     async defer></script>
 
 

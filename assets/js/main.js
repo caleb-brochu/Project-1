@@ -1,30 +1,74 @@
 $( document ).ready(function() {
+    var map;
+    var service = new google.maps.places.PlacesService(map);
+    var infowindow = new google.maps.InfoWindow();
+
+    setLimitsForCalendars();
     getUserLocation();
-    // initMap(getLatLong(getUserLocation()));
+
     $("#searchBtn").click(async () =>  {
+        let place = getDestination();
+
         emptyItinerary();
         updateClothing(getDestination(), getStartDate(), getEndDate());
         updatePlaceDuration();
-        let location = await getLatLong(getDestination());
-        initMap(location);
+        remakeMap(place, service, map);
+        let avgTemp = await getWeatherData();
+        // getStoreSuggestions(avgTemp);
+        getStorePosition(getStoreSuggestions(avgTemp, new google.maps.places.PlacesService(map)));
+
     });
-});
-    
+
     // Do this stuff when enter button is pressed
-    $("#searchBtn").bind("enterKey", async function(e) {
+    $("#destination").bind("enterKey", async function(e) {
+        e.preventDefault();
         emptyItinerary();
         updateClothing(getDestination(), getStartDate(), getEndDate());
         updatePlaceDuration();
         let location = await getLatLong(getDestination());
         initMap(location);
     });
-    $("#searchBtn").keyup(function(e) {
+
+    $("#destination").keyup(function(e) {
         if(e.keyCode == 13) {
             $(this).trigger("enterKey");
         }
     });
+});
 
-// });
+/**
+ * Function description
+ * Calls the necessary functions to get the average temperature during the trip
+ *
+ * @param - Takes no params
+ * @return - Returns the average temperature
+ *
+ */
+async function getWeatherData() {
+    let tempCoords = await getLatLong(getDestination());
+    let tempLink = await fetchWeather(tempCoords);
+    let tempWeatherObject = await fetchForecast(tempLink);
+    let avgTemp = getAverageTempOfTrip(tempWeatherObject);
+
+    return avgTemp;
+}
+
+
+
+// Set the limits for the calendars
+function setLimitsForCalendars(){
+    $("#start-date").val(moment().format("YYYY-MM-DD"));
+    $("#start-date").attr("min",moment().format("YYYY-MM-DD"));
+    $("#end-date").attr("min",moment().format("YYYY-MM-DD"));
+
+    $("#start-date").attr("max",moment().add(14,'days').format("YYYY-MM-DD"));
+    $("#end-date").attr("max",moment().add(14,'days').format("YYYY-MM-DD"));
+
+}
+
+$("#end-date").click(function setEndDateLimit(){
+    $("#end-date").attr("min",moment($("#start-date").val(),"YYYY-MM-DD").format("YYYY-MM-DD"))
+});
 
 /**
  * Function description
@@ -37,7 +81,15 @@ $( document ).ready(function() {
 function updatePlaceDuration(){
     let numDays = moment(endDate,"YYYY-MM-DD").diff(moment(startDate,"YYYY-MM-DD"),"d");
     $("#duration").text(numDays + " days");
-    $("#s-destination").text($("#destination").val());
+    $("#s-destination").text(titleCase($("#destination").val()));
+}
+
+function titleCase(string) {
+    var sentence = string.toLowerCase().split(" ");
+    for(var i = 0; i< sentence.length; i++){
+       sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+    }
+    return sentence.join(" ");
 }
 
 /**
@@ -85,10 +137,11 @@ function getEndDate() {
  *
  */
 function emptyItinerary() {
+    $("#days").empty();
     $("#map").empty();
-    $("#test").empty();
     $("#tops").empty("<ul>");
     $("#bottoms").empty("<ul>");
     $("#accessories").empty("<ul>");
     $("#footwear").empty("<ul>");
 }
+

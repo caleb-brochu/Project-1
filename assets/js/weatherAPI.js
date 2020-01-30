@@ -149,9 +149,9 @@ function createWeatherObject(weatherResponse){
     weatherObject = Object();
     //console.log(weatherResponse);
     let weatherPeriods = weatherResponse.properties.periods;
-    let curTime = moment();
-    minDays = moment(startDate,"YYYY-MM-DD").diff(curTime,"d");
-    maxDays = moment(endDate,"YYYY-MM-DD").diff(curTime,"d")+1;
+    let curTime = moment().startOf("day");
+    minDays = moment(startDate,"YYYY-MM-DD").startOf("day").diff(curTime,"d");
+    maxDays = moment(endDate,"YYYY-MM-DD").startOf("day").diff(curTime,"d")+1;
 
     // weather.gov has max 14 day forecast
     if (maxDays > 13){
@@ -159,7 +159,7 @@ function createWeatherObject(weatherResponse){
     }
 
     // loop through weather data for each day and generate object
-    for (i = minDays+1; i <= maxDays+1; i++){
+    for (i = minDays; i <= maxDays; i++){
         let w = {};
         w["temp"] = weatherPeriods[i].temperature;
         w["precip"] = weatherPeriods[i].shortForecast;
@@ -175,13 +175,32 @@ function createWeatherObject(weatherResponse){
     return weatherArray;
 }
 
+/**
+ * Function description
+ * Calculates the average temperature during the duration of the trip based on forecast data
+ *
+ * @param - Takes weatherArray as an array of temperatures
+ * @return - Returns the average temperature
+ *
+ */
+function getAverageTempOfTrip(weatherObj) {
+    let sum = 0;
+    let avg = 0;
+    for(let i = 0; i < weatherObj.length; i++) {
+        sum += weatherObj[i].temp;
+    }
+    
+    avg = sum / weatherArray.length;
+    return avg;
+}
+
 
 
 // generate daily html from weather data
 function generateDailyHtml(weatherArray) {
     // $("#days").empty();
     for (i = 0; i < weatherArray.length; i++){
-        let weatherDiv = $("<div>").addClass("column has-background-grey-lighter margin rounded black-border").attr('id', 'test');
+        let weatherDiv = $("<div>").addClass("column has-background-grey-lighter margin rounded black-border");
         // weatherDiv.text("Weather");
         let temp = $("<div>").text(`${weatherArray[i].temp}°F`);
         temp.addClass("has-text-centered temp");
@@ -208,7 +227,7 @@ function generateDailyHtml(weatherArray) {
         let dateDiv = $("<div>").addClass("bottom-border-thin column date-header");
         dateDiv.text(weatherArray[i].date);
 
-        let colDiv = $("<div>").addClass("column has-text-centered").attr('id', 'test');
+        let colDiv = $("<div>").addClass("column has-text-centered");
         colDiv.append(dateDiv);
         colDiv.append(columnsDiv);
 

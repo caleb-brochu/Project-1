@@ -1,8 +1,13 @@
-$("#map").css({
-    height: '350px',
-    style: 'border-radius: 6px'
-});
-var map;
+$(document).ready(() => {
+    $("#map").css({
+        height: '450px',
+        style: 'border-radius: 6px'
+    });
+
+
+
+
+})
 
 /**
  * Function description
@@ -13,11 +18,162 @@ var map;
  *
  */
 function initMap(coordinates) {
-
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: coordinates[0], lng: coordinates[1]},
         zoom: 11
     });
+}
+
+async function remakeMap(place, temp, map) {
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 14
+    });
+    temp = new google.maps.places.PlacesService(map);
+    var coords = await getLatLong(place);
+    var destination = new google.maps.LatLng(coords[0], coords[1]);
+
+    var request = {
+        query: 'Target' /** Get store names from list of generic clothing stores, get temperature data and suggest a store */,
+        fields: ['name', 'geometry'],
+        // locationBias: 5000 - Need to fix locationbias, not sure of the syntax
+    };
+
+    await temp.findPlaceFromQuery(request, async (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            await results;
+
+            for (var i = 0; i < results.length; i++) {
+                // Create marker on store location
+                // console.log(coords);
+                // createMarker(coords); 
+            }
+        }
+        map.setCenter(destination);
+    });
+}
+
+// Get store suggestions based on the weather
+function getStoreSuggestions(tempAvg) {
+
+
+    let coldafStores = {
+        "North Face" : "coldaf",
+        "REI" : "coldaf",
+        "Patagonia": "coldaf"
+    };
+
+    let coldStores = {
+
+        "Dick's Sporting Goods" : "cold"
+    };
+    let genericStores = {
+        "Target" : "generic",
+        "Walmart" : "generic",
+        "Uniqlo" : "generic",
+    };
+    let hotStores = {
+        "Gucci" : "hot"
+    };
+    let coldaf = 20;
+    let cold = 32;
+    let generic = 65;
+    let hot = 75;
+
+
+    let coldafPushList = [];  
+    let coldPushList = [];
+    let genericPushList = [];
+    let hotPushList = [];
+
+    // for (let value of Object.values(storeList)) {
+    //     for (store in storeList) {
+    //         // If temp lower than coldaf and value == coldaf
+    //         (tempAvg <= coldaf && value === "coldaf") ? coldafPushList.push(store) : {} ;
+    //         (tempAvg <= cold && tempAvg >= coldaf && value === "cold") ? coldPushList.push(store) : {};
+    //         (tempAvg <= generic && tempAvg >= cold  && value === "generic") ? genericPushList.push(store) : {};
+    //         (tempAvg <= hot && tempAvg >= generic && value === "hot") ? hotPushList.push(store) : {};
+    //     }
+    // }
+
+    // for (store in storeList) {
+        // for (let value of Object.values(storeList)) {
+        //     (tempAvg < coldaf && value === "coldaf") ? coldafPushList.push(Object.keys(storeList)) : {} ;
+        //     (tempAvg < cold && tempAvg > coldaf && value === "cold") ? coldPushList.push(Object.keys(storeList)) : {};
+        //     (tempAvg < generic && tempAvg > cold  && value === "generic") ? genericPushList.push(Object.keys(storeList)) : {};
+        //     (tempAvg < hot && tempAvg > generic && value === "hot") ? hotPushList.push(Object.keys(storeList)) : {};
+        // }
+    // }
+
+    if (tempAvg < coldaf) {
+        coldafPushList.push(Object.keys(coldafStores));
+    } else if (tempAvg > coldaf && tempAvg < cold) {
+        coldPushList.push(Object.keys(coldStores));
+    } else if (tempAvg > cold && tempAvg < generic) {
+        genericPushList.push(Object.keys(genericStores));
+    } else {
+        hotPushList.push(Object.keys(hotStores));
+    }
+
+    if (coldafPushList.length > 0) {
+        console.log("Exporting super cold list");
+        return coldafPushList;
+    } else if (coldPushList.length > 0) {
+        console.log("Exporting cold list");
+        return coldPushList;
+    } else if (genericPushList.length > 0) {
+        console.log("Exporting generic list");
+        return genericPushList;
+    } else {
+        console.log("Exporting hot list");
+        return hotPushList;
+    }
+}
+
+// Gets store position and returns lat and long to be passed on to createMarker() 
+function getStorePosition(storeArr, callback) {
+    var service = new google.maps.places.PlacesService(map);
+    var request;
+    let coordArr = [];
+    for (let i = 0; i < storeArr.length; i++) {
+        coordArr.push(storeArr[0][i]);
+        request = {
+            query: storeArr[0][i],
+            fields: ['name', 'geometry']
+        }
+
+        service.findPlaceFromQuery(request, (results, status) => {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                console.log(results);
+                storeArr.pop(storeArr[0]);
+                // createMarker([results[0].geometry.viewport.Ya["g"], results[0].geometry.viewport.Ta["g"]]);
+                
+            }
+        });
+    };
+
+}
+
+// Creates marker on store location passed in by getStorePosition
+function createMarker(coords) {
+  var marker;
+  var mapOptions;
+
+  mapOptions = {
+      zoom: 14
+  }
+
+  map = new google.maps.Map(document.getElementById('map'), mapOptions)
+  
+  marker = new google.maps.Marker({
+      map: map
+      // Get position of store and send it here
+    //   position: [coords[0], coords[1]],
+  });
+
+  google.maps.event.addListener(marker, 'click', () => {
+      infowindow.setContent(store.name);
+      infowindow.open(map, this);
+  })    
 }
 
 /**
@@ -37,7 +193,6 @@ async function success(position) {
     long = await position.coords.longitude;
 
     coords = [lat ,long];
-    console.log(coords);
 
     initMap(coords);
 }
