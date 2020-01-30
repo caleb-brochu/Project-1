@@ -131,7 +131,7 @@ function createWeatherObject(weatherResponse){
     weatherObject = Object();
     //console.log(weatherResponse);
     let weatherPeriods = weatherResponse.properties.periods;
-    let curTime = moment().startOf("#day");
+    let curTime = moment().startOf("day");
     minDays = moment(startDate,"YYYY-MM-DD").startOf("day").diff(curTime,"d");
     maxDays = moment(endDate,"YYYY-MM-DD").startOf("day").diff(curTime,"d")+1;
 
