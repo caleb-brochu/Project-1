@@ -19,10 +19,11 @@ let startDate;
 let endDate;
 let forecastLink;
 let weatherArray = [];
-let tops = {};
-let bottoms = {};
-let accessories = {};
-let footwear = {};
+let categories = {
+    tops: {},
+    bottoms: {},
+    accessories: {},
+    footwear: {}};
 
 let clothesMaps = {
     "coat" : "tops",
@@ -49,12 +50,6 @@ let clothesMaps = {
     "bounce house" : "accessories"
 };
 
-let clothesStrToVar = {
-    "tops" : tops,
-    "bottoms" : bottoms,
-    "footwear" : footwear,
-    "accessories" : accessories
-}
 
 let needOnlyOne = new Set(["coat","gloves","boots","jacket","rain coat","umbrella","scarf","heavy hat","bounce house"]);
 
@@ -64,13 +59,11 @@ function updateClothing(loc,initDate,finalDate){
     accessories = {};
     footwear = {};
     weatherArray = [];
-
-    clothesStrToVar = {
-        "tops" : tops,
-        "bottoms" : bottoms,
-        "footwear" : footwear,
-        "accessories" : accessories
-    }
+    categories = {
+        tops: {},
+        bottoms: {},
+        accessories: {},
+        footwear: {}};
 
     startDate = initDate;
     endDate = finalDate;
@@ -121,18 +114,6 @@ function fetchWeather(latLongArr){
 }
 
 
-
-// function fetchForecast(forecastLink){
-//     return fetch(forecastLink)
-//         .then(function (response){
-//             return response.json();
-//         })
-//         .then(function (json){
-//             //console.log(json);
-//             return createWeatherObject(json);
-//         });
-// };
-
 function fetchForecast(forecastLink) {
     return fetch(forecastLink)
         .then((response) => {
@@ -150,7 +131,7 @@ function createWeatherObject(weatherResponse){
     weatherObject = Object();
     //console.log(weatherResponse);
     let weatherPeriods = weatherResponse.properties.periods;
-    let curTime = moment().startOf("#day");
+    let curTime = moment().startOf("day");
     minDays = moment(startDate,"YYYY-MM-DD").startOf("day").diff(curTime,"d");
     maxDays = moment(endDate,"YYYY-MM-DD").startOf("day").diff(curTime,"d")+1;
 
@@ -165,7 +146,7 @@ function createWeatherObject(weatherResponse){
         w["temp"] = weatherPeriods[i].temperature;
         w["precip"] = weatherPeriods[i].shortForecast;
         w["icon"] = weatherPeriods[i].icon;
-        w["date"] = moment().add(i-1,"days").format("MM/DD");
+        w["date"] = moment().add(i,"days").format("MM/DD");
         weatherArray.push(w);
     }
     // let daily = json.daily.data;
@@ -204,11 +185,16 @@ function generateDailyHtml(weatherArray) {
         let weatherDiv = $("<div>").addClass("column has-background-grey-lighter margin rounded black-border");
         // weatherDiv.text("Weather");
         let temp = $("<div>").text(`${weatherArray[i].temp}°F`);
+        temp.addClass("has-text-centered temp");
         weatherDiv.append(temp);
         let precip = $("<div>").text(weatherArray[i].precip);
+        precip.addClass("has-text-centered precip");
         weatherDiv.append(precip);
-        let wIcon = $("<img>").attr("src",weatherArray[i].icon);
-
+        let iconDiv =$("<p>").addClass("weather-icon")
+        let wIcon = $("<img>").attr("src", weatherArray[i].icon);
+        wIcon.addClass(".has-image-centered icon");
+        iconDiv.append(wIcon);
+        weatherDiv.append(iconDiv);
 
         let suggestionDiv = $("<div>").addClass("column has-background-grey-lighter margin rounded black-border");
         //suggestionDiv.text("Suggestions");
@@ -232,35 +218,12 @@ function generateDailyHtml(weatherArray) {
         mainDiv.append(colDiv);
         $("#days").append(mainDiv);
     }
-
-    // <div class="columns has-background-dark" data-day="">
-    //     <div class="column has-text-grey-lighter has-text-centered">
-    //         <div class="bottom-border $section-padding">Date</div>
-                
-    //         <div class="columns is-mobile">
-    //             <div class="column has-text-centered has-text-grey-lighter">
-    //                 Weather
-    //             </div>
-    //             <div class="column has-text-centered has-text-grey-lighter">
-    //                 Suggestions
-    //             </div>
-    //         </div>
-    //     </div>
-    // </div>
 }
 
 function getSuggestions(weather){
     let temp = weather.temp;
     let precip = weather.precip.toLowerCase();
     let s = {};
-
-    // let heavyJackets = 0;
-    // let lightJackets = 0;
-    // let tShirts = 0;
-
-    // let tops = 0;
-    // let bottoms = 0;
-    // let accessories = 0;
     
     // clothes based on temperature
     if ( temp <= 30 ){
@@ -304,7 +267,7 @@ function getSuggestions(weather){
 
     // increment number of clothing item in category (tops, bottoms, ...)
     for (objStr of Object.values(s)){
-        let clothesCatObj = clothesStrToVar[clothesMaps[objStr]];
+        let clothesCatObj = categories[clothesMaps[objStr]];
         if (objStr in clothesCatObj){
             clothesCatObj[objStr] += 1;
         }
@@ -338,10 +301,10 @@ function updateClothesSummary(){
     //$("#accessories").append("<ul>");
     //$("#footwear").append("<ul>");
 
-    populateSummaryCat($("#tops"),tops);
-    populateSummaryCat($("#bottoms"),bottoms);
-    populateSummaryCat($("#accessories"),accessories);
-    populateSummaryCat($("#footwear"),footwear);
+    populateSummaryCat($("#tops"),categories["tops"]);
+    populateSummaryCat($("#bottoms"),categories["bottoms"]);
+    populateSummaryCat($("#accessories"),categories["accessories"]);
+    populateSummaryCat($("#footwear"),categories["footwear"]);
 }
 
 function populateSummaryCat(curDiv,summaryObj){
