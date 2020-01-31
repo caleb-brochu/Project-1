@@ -3,45 +3,65 @@ $( document ).ready(function() {
         center: {lat: 47.6062, lng: 122.3321},
         zoom: 11
     });
-    var service = new google.maps.places.PlacesService(map);
-    var infowindow = new google.maps.InfoWindow();
+
 
     setLimitsForCalendars();
     getUserLocation();
 
+
     $("#searchBtn").click(async () =>  {
-        let place = getDestination();
-
-        emptyItinerary();
-        updateClothing(getDestination(), getStartDate(), getEndDate());
-        updatePlaceDuration();
-        remakeMap(place, service, map);
-        let avgTemp = await getWeatherData();
-        getStorePosition(getStoreSuggestions(avgTemp, new google.maps.places.PlacesService(map)));
-        // createMarker(getStorePosition());
-
+        fireSearchQuery();
     });
 
     // Do this stuff when enter button is pressed
-    $("#destination").bind("enterKey", async function(e) {
-        let place = getDestination();
-
-        emptyItinerary();
-        updateClothing(getDestination(), getStartDate(), getEndDate());
-        updatePlaceDuration();
-        remakeMap(place, service, map);
-        let avgTemp = await getWeatherData();
-        // getStoreSuggestions(avgTemp);
-        getStorePosition(getStoreSuggestions(avgTemp, new google.maps.places.PlacesService(map)));
-        createMarker(getStorePosition());
-    });
-
-    $("#destination").keyup(function(e) {
-        if(e.keyCode == 13) {
-            $(this).trigger("enterKey");
+    document.querySelector('#destination').addEventListener('keypress', async function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            fireSearchQuery();
         }
     });
 });
+
+
+
+/**
+ * Function description
+ * Fires off the functionality once a city is searched 
+ *   empties the itinerary, gets the destinateion coordinates, updates the clothing and weather
+ *   updates the place duration, remakes the map, gets average temperature
+ *   and gets the store positions and populates onto map
+ *
+ * @param - Takes no params
+ * @return - Returns nothing
+ *
+ */
+async function fireSearchQuery(){
+    var service = new google.maps.places.PlacesService(map);
+    var infowindow = new google.maps.InfoWindow();
+    // ensure a place has been enteres
+    if (! $("#destination").val() ){
+        alert("Must enter a destination!");
+        return;
+    }
+    
+    // check if end date has been selected
+    if (!$("#end-date").val()){
+        alert("Must choose a return date!");
+        return;
+    }
+
+    let place = getDestination();
+
+    emptyItinerary();
+    updateClothing(getDestination(), getStartDate(), getEndDate());
+    updatePlaceDuration();
+    remakeMap(place, service, map);
+    let avgTemp = await getWeatherData();
+    getStorePosition(getStoreSuggestions(avgTemp, new google.maps.places.PlacesService(map)));
+    // createMarker(getStorePosition());
+}
+
+
 
 /**
  * Function description
@@ -86,7 +106,8 @@ $("#end-date").click(function setEndDateLimit(){
  *
  */
 function updatePlaceDuration(){
-    let numDays = moment(endDate,"YYYY-MM-DD").diff(moment(startDate,"YYYY-MM-DD"),"d");
+    // shifted total days +1 as we are considering the partial current day as one of the days
+    let numDays = moment(endDate,"YYYY-MM-DD").add(1,"days").diff(moment(startDate,"YYYY-MM-DD"),"d");
     $("#duration").text(numDays + " days");
     $("#s-destination").text(titleCase($("#destination").val()));
 }
