@@ -141,7 +141,7 @@ function createWeatherObject(weatherResponse){
     }
 
     // loop through weather data for each day and generate object
-    for (i = minDays; i <= maxDays; i++){
+    for (i = minDays; i < maxDays; i++){
         let w = {};
         w["temp"] = weatherPeriods[i].temperature;
         w["precip"] = weatherPeriods[i].shortForecast;
