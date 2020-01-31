@@ -38,6 +38,8 @@ $( document ).ready(function() {
 async function fireSearchQuery(){
     var service = new google.maps.places.PlacesService(map);
     var infowindow = new google.maps.InfoWindow();
+
+
     // ensure a place has been enteres
     if (! $("#destination").val() ){
         alert("Must enter a destination!");
